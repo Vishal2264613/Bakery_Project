@@ -1,9 +1,30 @@
-import React from "react";
-import { menuItems, cakesData } from "../constants";
+import { menuItemsTitles, cakesData } from "../constants";
 import { menuMainImg } from "../utils";
 import Card from "../components/Card";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const Menu = () => {
+  const [menuItems, setMenuItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/menu");
+        setMenuItems(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching menu items:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchMenuItems();
+  }, []);
+
+  if (loading) return <p>Loading menu...</p>;
+
   return (
     <>
       <section className="relative w-full h-[70vh]  overflow-hidden">
@@ -14,7 +35,7 @@ const Menu = () => {
       </section>
       <section className="relative w-full h-[20vh] bg-yellow-50  overflow-hidden flex flex-col justify-center items-center">
         <div className="flex justify-between items-center w-[40vw] h-full ">
-          {menuItems.map((item) => (
+          {menuItemsTitles.map((item) => (
             <div className="flex flex-col items-center justify-center text-black cursor-pointer hover:scale-150 transition-all duration-500">
               <img key={item} src={item.img} height={50} width={50} />
               <h2 className="text-sm font-normal">{item.title}</h2>
@@ -29,13 +50,13 @@ const Menu = () => {
         </h2>
         <div className=" w-full  flex justify-center ">
           <div class="grid grid-cols-4 gap-20">
-            {cakesData.map((cake) => (
+            {menuItems.map((cake) => (
               <Card
                 key={cake.id}
-                title={cake.title}
+                title={cake.name}
                 description={cake.description}
                 price={cake.price}
-                img={cake.img}
+                img={cake.imageUrl}
               />
             ))}
           </div>

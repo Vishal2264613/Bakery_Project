@@ -15,7 +15,7 @@ import {
 
 export const navLists = ["Home", "Shop", "About Us", "Blogs"];
 
-export const menuItems = [
+export const menuItemsTitles = [
   {
     id: 1,
     title: "Cake",
