@@ -28,10 +28,10 @@ import {
 
 const Hero = () => {
   useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    
     gsap.fromTo(
       "#mainTextLeft",
-      { x: -200, opacity: 0, scale: 2 },
+      { x: -400, opacity: 0, scale: 2 },
       { x: 0, opacity: 1, scale: 1, duration: 3, ease: "power3.out" }
     );
     gsap.fromTo(
@@ -51,14 +51,16 @@ const Hero = () => {
 
         {/* Optional Content Over the Overlay */}
         <div className="relative z-20 flex w-full h-full">
-          <div className=" w-1/3 h-full bg-white/5 backdrop-blur-lg border border-white/10 p-6 shadow-lg flex justify-center items-center"></div>
-
+          <div className=" w-1/3 h-full bg-white/5 backdrop-blur-lg border border-white/10 p-6 shadow-lg flex justify-center items-center">
           <p
             id="mainTextLeft"
-            class="text-[150px] pl-60 w-full h-full font-extrabold text-transparent bg-clip-text bg-[url('/assets/images/mainSection.jpg')]  bg-cover absolute z-10 flex items-center justify-start"
+            class="text-[150px] pl-60 w-full h-full font-extrabold text-transparent bg-clip-text bg-[url('/assets/images/mainSection.jpg')]  bg-cover bg-no-repeat absolute z-10 flex items-center justify-end"
           >
             MA
           </p>
+          </div>
+
+         
 
           <div className="h-full flex flex-col items-start justify-center text-center ">
             <p id="mainTextRight" className="text-[150px] ml-1 font-extrabold">
@@ -108,18 +110,18 @@ const Hero = () => {
         </div>
       </section>
       <section className="relative w-full h-[100vh] pt-4 pb-4 bg-white overflow-hidden">
-        <div className="flex justify-between">
+        <div className="flex justify-evenly">
           <img
             src={s3_1}
-            className="h-[90vh] w-[33%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            className="h-[90vh] w-[32%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
           />
           <img
             src={s3_2}
-            className="h-[90vh] w-[33%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            className="h-[90vh] w-[32%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
           />
           <img
             src={s3_3}
-            className="h-[90vh] w-[33%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            className="h-[90vh] w-[32%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
           />
         </div>
       </section>

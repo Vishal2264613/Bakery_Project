@@ -1,17 +1,11 @@
-import Hero from "./pages/Hero";
-import Navbar from "./components/Navbar";
-import Menu from "./pages/Menu";
-import Card from "./components/Card";
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import AppRoutes from "./AppRoutes"; // <-- new component that uses useLocation
 
-function App() {
-  return (
-    <main className="bg-white relative">
-      <Navbar />
-      {/* <Hero /> */}
-      <Menu />
-      {/* <Card /> */}
-    </main>
-  );
-}
+const App = () => (
+  <Router>
+    <AppRoutes />
+  </Router>
+);
 
 export default App;

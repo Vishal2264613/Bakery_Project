@@ -24,6 +24,7 @@ import cupCakeMenu from "/assets/images/cupCake.svg";
 import dessertMenu from "/assets/images/dessert.svg";
 import menuMain from "/assets/images/menuMain.jpg";
 import video from "/assets/videos/heroVideo.mp4";
+import loginBackgound from "/assets/images/loginBg.jpg";
 
 import cake1 from "/assets/menuImages/cake1.jpg";
 import cake2 from "/assets/menuImages/cake2.jpg";
@@ -33,6 +34,8 @@ import cake5 from "/assets/menuImages/cake5.jpg";
 import cake6 from "/assets/menuImages/cake6.jpg";
 import cake7 from "/assets/menuImages/cake7.jpg";
 import cake8 from "/assets/menuImages/cake8.jpg";
+
+export const loginBgImg = loginBackgound;
 
 export const cake1Img = cake1;
 export const cake2Img = cake2;
