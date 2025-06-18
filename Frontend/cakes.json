@@ -1,0 +1,92 @@
+[
+  {
+    "name": "Alphonso Mango Cake",
+    "description": "Rich and moist Mango sponge",
+    "price": 18.99,
+    "category": "Cakes",
+    "imageUrl": "https://defencebakery.in/cdn/shop/files/IMG_0663.jpg?v=1742623622&width=1500",
+    "available": true,
+    "tags": ["chocolate", "cake", "dessert"]
+  },
+  {
+    "name": "Chocolate Truffle Cake",
+    "description": "Chocolate cake with extra chocolate",
+    "price": 16.5,
+    "category": "Cakes",
+    "imageUrl": "https://defencebakery.in/cdn/shop/files/1080x1080_image_0024_DSC_2094.jpg?v=1739871082&width=1500",
+    "available": true,
+    "tags": ["vanilla", "cake", "classic"]
+  },
+  {
+    "name": "Red Velvet Cake",
+    "description": "Soft red velvet sponge with layers of smooth cream cheese frosting.",
+    "price": 19.99,
+    "category": "Cakes",
+    "imageUrl": "https://example.com/images/red-velvet-cake.jpg",
+    "available": true,
+    "tags": ["red velvet", "cake", "cream cheese"]
+  },
+  {
+    "name": "Pinapple Cake",
+    "description": "Pineapple cake egg free",
+    "price": 17.75,
+    "category": "Cakes",
+    "imageUrl": "https://defencebakery.in/cdn/shop/files/1080x1080_image_0013_DSC_2132.jpg?v=1739870452&width=1500",
+    "available": true,
+    "tags": ["strawberry", "cake", "fruit"]
+  },
+  {
+    "name": "Black Forest Cake",
+    "description": "Chocolate black forest sponge ",
+    "price": 20.0,
+    "category": "Cakes",
+    "imageUrl": "https://defencebakery.in/cdn/shop/files/German_black_forest.jpg?v=1739870176&width=1500",
+    "available": true,
+    "tags": ["cherry", "chocolate", "cream"]
+  },
+  {
+    "name": "Fresh Fruit Cake",
+    "description": "Fresh Fruit cake with extra cream",
+    "price": 15.95,
+    "category": "Cakes",
+    "imageUrl": "https://defencebakery.in/cdn/shop/files/1080x1080_image_0010_DSC_2140.jpg?v=1739870045&width=1500",
+    "available": true,
+    "tags": ["lemon", "cake", "zesty"]
+  },
+  {
+    "name": "Carrot Cake",
+    "description": "Moist spiced carrot cake topped with rich cream cheese frosting.",
+    "price": 16.25,
+    "category": "Cakes",
+    "imageUrl": "https://example.com/images/carrot-cake.jpg",
+    "available": true,
+    "tags": ["carrot", "spiced", "cream cheese"]
+  },
+  {
+    "name": "Lite chocolate chip cake",
+    "description": "Chocolate chip cake egg free",
+    "price": 17.0,
+    "category": "Cakes",
+    "imageUrl": "https://defencebakery.in/cdn/shop/files/Lite_Choco_Chip_Cake.jpg?v=1739870787&width=1500",
+    "available": true,
+    "tags": ["coffee", "walnut", "cake"]
+  },
+  {
+    "name": "Chocolate hazelnut Cake",
+    "description": "New Hazelnut chocolate cake",
+    "price": 21.5,
+    "category": "Cakes",
+    "imageUrl": "https://defencebakery.in/cdn/shop/files/chocolate_hazelnut_cake.jpg?v=1739870660&width=1500",
+    "available": true,
+    "tags": ["tiramisu", "espresso", "mascarpone"]
+  },
+  {
+    "name": "Caramel Royal Cake",
+    "description": "Caramel royale cake small",
+    "price": 22.0,
+    "category": "Cakes",
+    "imageUrl": "https://defencebakery.in/cdn/shop/files/1080x1080_image_0005_DSC_2154.jpg?v=1739870554&width=1500",
+    "available": true,
+    "tags": ["rainbow", "vanilla", "celebration"]
+  }
+]
