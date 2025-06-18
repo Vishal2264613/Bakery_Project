@@ -13,7 +13,7 @@ import {
   cake8Img,
 } from "../utils";
 
-export const navLists = ["Home", "Shop", "About Us", "Blogs"];
+export const navLists = ["Home", "Shop", "About", "Contact"];
 
 export const menuItemsTitles = [
   {

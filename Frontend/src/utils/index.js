@@ -35,7 +35,19 @@ import cake6 from "/assets/menuImages/cake6.jpg";
 import cake7 from "/assets/menuImages/cake7.jpg";
 import cake8 from "/assets/menuImages/cake8.jpg";
 
+import aboutUs from "/assets/images/about.jpg";
+import aboutUs2 from "/assets/images/about2.jpg";
+import aboutUs3 from "/assets/images/about3.png";
+
+import contact1 from "/assets/images/contact.jpg";
+
 export const loginBgImg = loginBackgound;
+
+export const aboutUsImg = aboutUs;
+export const aboutUsImg2 = aboutUs2;
+export const aboutUsImg3 = aboutUs3;
+
+export const contactUsImg = contact1;
 
 export const cake1Img = cake1;
 export const cake2Img = cake2;
