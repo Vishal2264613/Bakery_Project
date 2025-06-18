@@ -7,6 +7,7 @@ import axios from "axios";
 const Menu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedMenuItem, setSelectedMenuItem] = useState("cakes");
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -50,13 +51,13 @@ const Menu = () => {
         </h2>
         <div className=" w-full  flex justify-center ">
           <div class="grid grid-cols-4 gap-20">
-            {menuItems.map((cake) => (
+            {menuItems.map((item) => (
               <Card
-                key={cake.id}
-                title={cake.name}
-                description={cake.description}
-                price={cake.price}
-                img={cake.imageUrl}
+                key={item.id}
+                title={item.name}
+                description={item.description}
+                price={item.price}
+                img={item.image_url}
               />
             ))}
           </div>

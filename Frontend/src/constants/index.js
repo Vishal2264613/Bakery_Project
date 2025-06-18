@@ -18,22 +18,22 @@ export const navLists = ["Home", "Shop", "About Us", "Blogs"];
 export const menuItemsTitles = [
   {
     id: 1,
-    title: "Cake",
+    title: "Cakes",
     img: cakeMenuImg,
   },
   {
     id: 2,
-    title: "Dessert",
+    title: "Desserts",
     img: dessertMenuImg,
   },
   {
     id: 3,
-    title: "Cookie",
+    title: "Cookies",
     img: cookieMenuImg,
   },
   {
     id: 4,
-    title: "Cup Cake",
+    title: "Cup Cakes",
     img: cupCakeMenuImg,
   },
 ];

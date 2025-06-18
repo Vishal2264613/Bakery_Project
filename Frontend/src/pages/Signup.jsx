@@ -63,7 +63,7 @@ const Signup = () => {
                       icon: "success",
                     });
 
-                    navigate("/");
+                    navigate("/login");
                   })
                   .catch((err) => {
                     console.error(err);
