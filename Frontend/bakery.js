@@ -1,7 +1,7 @@
 [
     {
       "name": "Alphonso mango cake",
-      "category": "Alphonso mango cake egg free",
+      "category": "Cakes",
       "price": 25.99,
       "description": "Rich and moist chocolate cake with a layer of fudge icing.",
       "available": true,
@@ -10,7 +10,7 @@
     },
     {
       "name": "Chocolate truffle Cake",
-      "category": "New truffle cake ",
+      "category": "Cakes",
       "price": 22.50,
       "description": "Light and fluffy vanilla cake made with real vanilla beans.",
       "available": true,
@@ -19,7 +19,7 @@
     },
     {
       "name": "Pineapple Cake",
-      "category": "Pineapple egg free cake",
+      "category": "Cakes",
       "price": 27.00,
       "description": "Classic red velvet with layers of cream cheese frosting.",
       "available": true,
@@ -28,7 +28,7 @@
     },
     {
       "name": "Black Forest Cake",
-      "category": "German black forest Cake",
+      "category": "Cakes",
       "price": 29.50,
       "description": "Decadent chocolate cake layered with cherries and whipped cream.",
       "available": false,
@@ -37,7 +37,7 @@
     },
     {
       "name": "Fresh fruit Cake",
-      "category": "Fresh fruit yummy Cake",
+      "category": "Cakes",
       "price": 21.75,
       "description": "Zesty lemon cake with a sweet lemon glaze.",
       "available": true,
@@ -46,7 +46,7 @@
     },
     {
       "name": "Lite chocolate chip cake",
-      "category": "Egg free chocolate chip cake",
+      "category": "Cakes",
       "price": 24.95,
       "description": "Fresh strawberries layered between sponge cake and whipped cream.",
       "available": true,
@@ -55,7 +55,7 @@
     },
     {
       "name": "Chocolate Hazelnut Cake",
-      "category": "Chocolate hazlnut cake",
+      "category": "Cakes",
       "price": 23.50,
       "description": "Spiced carrot cake with walnuts and a smooth cream cheese frosting.",
       "available": false,
@@ -64,7 +64,7 @@
     },
     {
       "name": "Caranel royal Cake",
-      "category": "Caramel royal cake",
+      "category": "Cakes",
       "price": 24.00,
       "description": "Coffee-flavored cake with crunchy walnuts and a creamy coffee icing.",
       "available": true,
@@ -73,7 +73,7 @@
     },
     {
       "name": "Red Velvet Cake",
-      "category": "Red velvet cake",
+      "category": "Cakes",
       "price": 26.50,
       "description": "Light mango mousse layered on sponge cake, topped with mango glaze.",
       "available": true,
@@ -82,7 +82,7 @@
     },
     {
       "name": "Bonanza Cake",
-      "category": "Bonanza cake",
+      "category": "Cakes",
       "price": 28.00,
       "description": "Italian-style cake with layers of coffee-soaked sponge and mascarpone cream.",
       "available": true,
