@@ -1,6 +1,7 @@
-import { logoImg, bagImg, searchImg } from "../utils";
+import { logoImg, bagImg, searchImg, accountImg } from "../utils";
 import { navLists } from "../constants";
 import { useState, useEffect } from "react";
+import { RiAccountCircleLine } from "react-icons/ri";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -33,15 +34,15 @@ const Navbar = () => {
 
         <div className="flex items-baseline gap-7 max-sm:justify-end max-sm:flex-1">
           <img
-            src={searchImg}
-            alt="search"
+            src={bagImg}
+            alt="bag"
             width={18}
             height={18}
             className="cursor-pointer"
           />
           <img
-            src={bagImg}
-            alt="bag"
+            src={accountImg}
+            alt="account"
             width={18}
             height={18}
             className="cursor-pointer"

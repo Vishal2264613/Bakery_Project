@@ -39,6 +39,8 @@ import aboutUs from "/assets/images/about.jpg";
 import aboutUs2 from "/assets/images/about2.jpg";
 import aboutUs3 from "/assets/images/about3.png";
 
+import accImage from "/assets/images/account.svg";
+
 import contact1 from "/assets/images/contact.jpg";
 
 export const loginBgImg = loginBackgound;
@@ -86,3 +88,4 @@ export const heroVideo = video;
 export const logoImg = logo;
 export const searchImg = search;
 export const bagImg = bag;
+export const accountImg = accImage;
