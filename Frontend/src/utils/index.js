@@ -25,6 +25,7 @@ import dessertMenu from "/assets/images/dessert.svg";
 import menuMain from "/assets/images/menuMain.jpg";
 import video from "/assets/videos/heroVideo.mp4";
 import loginBackgound from "/assets/images/loginBg.jpg";
+import checkoutBackgound from "/assets/images/checkout.jpg";
 
 import cake1 from "/assets/menuImages/cake1.jpg";
 import cake2 from "/assets/menuImages/cake2.jpg";
@@ -42,6 +43,8 @@ import aboutUs3 from "/assets/images/about3.png";
 import accImage from "/assets/images/account.svg";
 
 import contact1 from "/assets/images/contact.jpg";
+
+export const checkoutImg = checkoutBackgound;
 
 export const loginBgImg = loginBackgound;
 

@@ -1,7 +1,7 @@
 import { menuItemsTitles, cakesData } from "../constants";
 import { menuMainImg } from "../utils";
 import Card from "../components/Card";
-import React, { useEffect, useState } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import axios from "axios";
 import Footer from "../components/Footer";
 
@@ -69,7 +69,8 @@ const Menu = () => {
             {menuItems.map((item) =>
               item.category === selectedMenuItem ? (
                 <Card
-                  key={item.id}
+                  key={item._id}
+                  id={item._id} 
                   title={item.name}
                   description={item.description}
                   price={item.price}

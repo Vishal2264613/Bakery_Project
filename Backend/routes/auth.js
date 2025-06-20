@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // @route   POST /api/auth/signup
 // @desc    Register new user
@@ -44,9 +45,16 @@ router.post("/login", async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: "Invalid email or password" });
     // Successful login — you can return user data or token here
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN }
+    );
     res.status(200).json({
       message: "Login successful",
-      user: { name: user.name, email: user.email },
+      token,
+      user: {  id: user._id,name: user.name, email: user.email }
     });
   } catch (error) {
     res.status(500).json({ message: "Server error" });

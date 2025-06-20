@@ -5,7 +5,7 @@ import React from "react";
 
 const Map = () => {
   return (
-    <div className="h-[300px] w-[70%] rounded-xl overflow-hidden">
+    <div className="h-[300px] w-[70%] rounded-xl overflow-hidden z-0">
       <MapContainer
         center={[28.6139, 77.209]}
         zoom={13}

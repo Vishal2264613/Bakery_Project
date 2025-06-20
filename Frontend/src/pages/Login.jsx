@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess, loginFailure } from "../redux/auth/authSlice";
 
 
 const LoginSchema = Yup.object().shape({
@@ -20,6 +22,9 @@ const LoginSchema = Yup.object().shape({
   
 
 const Login = () => {
+
+  const dispatch = useDispatch();
+  const error = useSelector((state) => state.auth.error);
   const navigate = useNavigate();
   return (
     <section className="relative w-full h-screen overflow-hidden">
@@ -48,12 +53,22 @@ const Login = () => {
                           title: "Login Successful!",
                           text: "Welcome back!",
                           icon: "success",
+                          confirmButtonText: 'OK'
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            // Redirect to home page
+                            dispatch(loginSuccess({
+                              token: res.data.token,
+                              user: res.data.user,
+                            }));
+                            navigate("/home"); 
+                          }
                         });
 
                         // Optional: Save token or user to localStorage or Redux
                         // localStorage.setItem("token", res.data.token);
 
-                        navigate("/home"); // or home page
+                      // or home page
                       })
                       .catch((err) => {
                         console.error(err);
@@ -63,6 +78,12 @@ const Login = () => {
                             err.response?.data?.message ||
                             "Invalid email or password",
                           icon: "error",
+                        }).then((result) => {
+                          if (result.isDismissed) {
+                            // Redirect to home page
+                            dispatch(loginFailure(error.response?.data?.message || "Login failed"));
+                            
+                          }
                         });
                       });
                   }}

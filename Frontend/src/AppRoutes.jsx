@@ -7,12 +7,13 @@ import Login from "./pages/Login";
 import Menu from "./pages/Menu";
 import Signup from "./pages/Signup";
 import Navbar from "./components/Navbar";
+import Cart from "./pages/Cart";
 
 const AppRoutes = () => {
   const location = useLocation();
 
   // Show Navbar only on /home and /about
-  const showNavbarRoutes = ["/home", "/about", "/shop", "/contact"];
+  const showNavbarRoutes = ["/home", "/about", "/shop", "/contact","/cart"];
   const showNavbar = showNavbarRoutes.includes(location.pathname);
 
   return (
@@ -24,6 +25,7 @@ const AppRoutes = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/" element={<Signup />} />
         <Route path="/shop" element={<Menu />} />
       </Routes>
