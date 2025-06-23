@@ -35,7 +35,10 @@ const Hero = () => {
     <>
       <section className="relative w-full h-screen bg-black overflow-hidden">
         <div className="absolute flex items-center justify-center w-full h-screen">
-          <img src={heroImg} className="max-w-full h-auto" />
+          <img
+            src={heroImg}
+            className="max-w-full h-full object-cover bg-no-repeat"
+          />
         </div>
 
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10" />
@@ -45,33 +48,36 @@ const Hero = () => {
           <div className=" w-1/3 h-full bg-white/5 backdrop-blur-lg border border-white/10 p-6 shadow-lg flex justify-center items-center">
             <p
               id="mainTextLeft"
-              class="text-[150px] pl-60 w-full h-full font-extrabold text-transparent bg-clip-text bg-[url('/assets/images/mainSection.jpg')]  bg-cover absolute z-10 flex items-center justify-end"
+              class="lg:text-[150px] md:text-[100px] max-sm:text-[50px] md:pl-60 sm:pl-40 w-full h-full font-extrabold text-transparent bg-clip-text bg-[url('/assets/images/mainSection.jpg')]  bg-cover absolute z-10 flex items-center justify-end"
             >
               MA
             </p>
           </div>
 
           <div className="h-full flex flex-col items-start justify-center text-center ">
-            <p id="mainTextRight" className="text-[150px] ml-1 font-extrabold">
+            <p
+              id="mainTextRight"
+              className="lg:text-[150px] md:text-[100px] max-sm:text-[50px]  ml-1 font-extrabold"
+            >
               BAKER
             </p>
           </div>
         </div>
       </section>
       <section className="relative w-full h-auto bg-white overflow-hidden">
-        <div className="flex justify-center items-center">
-          <div className="flex flex-col text-black p-20">
-            <h3 className="text-xl md:text-3xl font-bold mb-6">
+        <div className="flex max-sm:flex-col justify-evenly p-1 pt-20 pb-20 items-center">
+          <div className="flex flex-col max-sm:text-center text-black ">
+            <h3 className="text-xl lg:text-3xl font-bold mb-6">
               The recipe to happiness
             </h3>
 
-            <p className="text-lg md:text-lg text-gray-500 max-w-2xl mb-4">
+            <p className="text-sm lg:text-lg text-gray-500 max-w-2xl mb-4">
               Freshly baked with love, every treat tells a story.
               <br />
               Simple ingredients, unforgettable taste.
             </p>
 
-            <p className="text-base md:text-lg text-gray-500  max-w-2xl">
+            <p className=" text-sm lg:text-lg text-gray-500  max-w-2xl">
               From gooey cookies to fluffy cakes,
               <br />
               we craft each recipe with care.
@@ -80,52 +86,57 @@ const Hero = () => {
               <br />
               and sweet moments start here.
             </p>
-            <div className="w-full max-w-2xl text-left">
-              <button className="bg-black text-white mt-5 px-6 py-3 text-sm font-semibold rounded hover:bg-gray-800 transition">
+            <div className="w-full flex max-sm:justify-center max-sm:items-center max-w-2xl text-left">
+              <button className="bg-black mb-2 text-white mt-5 px-6 py-3 text-sm font-semibold rounded hover:bg-gray-800 transition">
                 Check Out
               </button>
             </div>
           </div>
-          <div className="flex">
+          <div className="flex ">
             <img
               src={recipe1}
-              className="h-[320px] w-[240px] mr-2 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
+              className="h-[320px] w-[240px] max-sm:w-[180px] max-sm:h-[220px] mr-2 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
             />
             <img
               src={recipe2}
-              className="h-[320px] w-[240px] mr-2 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
+              className="h-[320px] w-[240px] max-sm:w-[180px] max-sm:h-[220px] mr-2 rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
             />
           </div>
         </div>
       </section>
-      <section className="relative w-full h-[100vh] pt-4 pb-4 bg-white overflow-hidden">
-        <div className="flex justify-evenly">
+      <section className="relative w-full h-auto pt-4 pb-4 bg-white overflow-hidden">
+        <div className="flex max-sm:flex-col max-sm:p-2 justify-evenly">
           <img
             src={s3_1}
-            className="h-[90vh] w-[32%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            className="h-[90vh]   w-[32%] max-sm:w-[100%] p-1 object-cover   rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
           />
           <img
             src={s3_2}
-            className="h-[90vh] w-[32%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            className="h-[90vh] w-[32%]  max-sm:w-[100%] p-1 object-cover  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
           />
           <img
             src={s3_3}
-            className="h-[90vh] w-[32%]  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
+            className="h-[90vh] w-[32%]  max-sm:w-[100%]  p-1  object-cover  rounded-md shadow-xl hover:shadow-2xl transition-shadow duration-300"
           />
         </div>
       </section>
       <section className="relative w-full h-auto pt-4 pb-4 bg-white overflow-hidden">
         <div className="flex flex-col justify-center items-center">
-          <div className="flex justify-between items-center w-[60%] pb-[50px] relative">
-            <img src={cookieImg} className="h-[210px] w-[450px] pe-[50px] " />
-            <div className="text-black w-[50%]">
-              <h3 className="font-greatvibes text-yellow-500 text-6xl ps-2 absolute z-0">
+          <div className="flex  justify-evenly items-center w-full p-[50px] relative">
+            <div className="">
+              <img
+                src={cookieImg}
+                className="h-[210px] w-[450px] max-sm:w-[240px] max-sm:h-[100px] pe-[50px] "
+              />
+            </div>
+            <div className="text-black  w-[50%]">
+              <h3 className="font-greatvibes text-yellow-500 text-6xl max-sm:text-5xl ps-2 absolute z-0">
                 Freshly
               </h3>
-              <h2 className="text-4xl ps-2 relative z-10 mt-10">
+              <h2 className="text-4xl max-sm:text-2xl ps-2 relative z-10 mt-10">
                 Special Cookies
               </h2>
-              <p className="font-thin text-sm p-2 relative z-10">
+              <p className="font-thin text-sm max-sm:text-xs p-2 relative z-10">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam.{" "}
@@ -135,15 +146,15 @@ const Hero = () => {
               </button>
             </div>
           </div>
-          <div className="flex justify-center items-center w-[60%] pb-[50px] relative">
+          <div className="flex   justify-evenly items-center w-full p-[50px] relative">
             <div className="text-black flex flex-col  items-end  w-[50%]">
-              <h3 className="font-greatvibes text-yellow-500 text-6xl ps-2 absolute z-0">
+              <h3 className="font-greatvibes text-yellow-500 text-6xl max-sm:text-5xl ps-2 absolute z-0">
                 Delicious
               </h3>
-              <h2 className="text-4xl ps-2 relative z-10 mt-10">
+              <h2 className="text-4xl max-sm:text-2xl ps-2 relative z-10 mt-10">
                 A Family Tradition
               </h2>
-              <p className="font-thin text-sm p-2 relative z-10">
+              <p className="font-thin text-right text-sm max-sm:text-xs p-2 relative z-10">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam.{" "}
@@ -152,21 +163,28 @@ const Hero = () => {
                 READ MORE
               </button>
             </div>
-            <img src={donutImg} className="h-[300px] w-[450px] ps-[50px] " />
+            <div>
+              <img
+                src={donutImg}
+                className="h-[300px] w-[450px] max-sm:w-[240px] max-sm:h-[100px] ps-[50px] "
+              />
+            </div>
           </div>
-          <div className="flex justify-between items-center w-[60%] relative">
-            <img
-              src={croissantImg}
-              className="h-[250px] w-[450px] pe-[50px] "
-            />
+          <div className="flex justify-evenly items-center w-full p-[50px] relative">
+            <div>
+              <img
+                src={croissantImg}
+                className="h-[250px] w-[450px] max-sm:w-[240px] max-sm:h-[100px] pe-[50px] "
+              />
+            </div>
             <div className="text-black w-[50%]">
-              <h3 className="font-greatvibes text-yellow-500 text-6xl ps-2 absolute z-0">
+              <h3 className="font-greatvibes text-yellow-500 text-6xl max-sm:text-5xl ps-2 absolute z-0">
                 Special
               </h3>
-              <h2 className="text-4xl ps-2 relative z-10 mt-10">
+              <h2 className="text-4xl max-sm:text-2xl ps-2 relative z-10 mt-10">
                 Baked With Love
               </h2>
-              <p className="font-thin text-sm p-2 relative z-10">
+              <p className="font-thin text-sm max-sm:text-xs p-2 relative z-10">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam.{" "}
@@ -178,16 +196,19 @@ const Hero = () => {
           </div>
         </div>
       </section>
-      <section className="relative w-full h-[50vh] pt-4 pb-4 bg-black overflow-hidden ">
-        <div className="absolute flex items-center justify-center w-full h-2/6 ">
-          <img src={s4Img} className="max-w-full h-auto " />
+      <section className="relative w-full h-[50vh] bg-black overflow-hidden ">
+        <div className="absolute flex items-center justify-center w-full h-full ">
+          <img
+            src={s4Img}
+            className="max-w-full h-full w-full object-cover object-bottom"
+          />
         </div>
         <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-40 z-10" />
         <div className="absolute flex flex-col items-center justify-center w-full h-[50vh] z-20">
-          <h2 className="text-6xl tracking-widest font-greatvibes">
+          <h2 className="text-6xl max-sm:text-4xl tracking-widest font-greatvibes">
             Delicious Alternatives
           </h2>
-          <p className="font-thin text-sm p-2 w-[30%] text-center">
+          <p className="font-thin text-sm p-2 w-[30%] max-sm:text-xs max-lg:w-[70%] text-center">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam.{" "}
@@ -198,17 +219,22 @@ const Hero = () => {
         </div>
       </section>
       <section className="relative w-full h-[60vh] bg-white overflow-hidden">
-        <div className="flex justify-center items-center h-full">
-          <div className="flex justify-between items-center w-[60%] relative">
-            <img src={s5Img} className="h-[320px] w-[400px] pe-[50px] " />
-            <div className="text-black w-[60%]">
-              <h3 className="font-greatvibes text-yellow-500 text-6xl ps-2 absolute z-0">
+        <div className="flex justify-evenly items-center h-full">
+          <div className="flex justify-evenly items-center relative">
+            <div>
+              <img
+                src={s5Img}
+                className="h-[320px] w-[400px] pe-[50px] max-lg:w-[280px] max-lg:h-[200px]  max-md:w-[200px] max-md:h-[120px] "
+              />
+            </div>
+            <div className="text-black w-[40%]">
+              <h3 className="font-greatvibes text-yellow-500 text-6xl max-lg:text-4xl ps-2 absolute z-0">
                 For You
               </h3>
-              <h2 className="text-4xl ps-2 relative z-10 mt-10">
+              <h2 className="text-4xl max-lg:text-xl ps-2 relative z-10 mt-10">
                 The Recipe To Happiness
               </h2>
-              <p className="font-thin text-sm p-2 text-gray-600 relative z-10">
+              <p className="font-thin text-sm max-lg:text-xs p-2 text-gray-600 relative z-10">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim veniam.{" "}

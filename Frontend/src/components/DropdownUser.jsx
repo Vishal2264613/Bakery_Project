@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const DropdownUser = ({ closeMenu }) => {
   const handleLogout = () => {
     dispatch(logout());
     closeMenu();
-    navigate("/home");
+    navigate("/");
   };
 
   return (

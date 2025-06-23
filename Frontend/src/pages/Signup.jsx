@@ -32,18 +32,23 @@ const Signup = () => {
   return (
     <section className="relative w-full h-screen overflow-hidden">
       <div className="absolute flex items-center justify-center w-full h-screen z-0">
-        <img src={loginBgImg} className="max-w-full h-auto" />
+        <img
+          src={loginBgImg}
+          className="max-w-full h-full w-full object-cover object-top"
+        />
       </div>
       <div className="flex justify-center items-center w-full h-full">
-        <div className="absolute w-[80%] h-[80%] bg-black z-10 backdrop-blur-[6px] bg-black/10 rounded-2xl flex ">
-          <div className="w-[50%] h-full flex flex-col justify-center items-start p-16">
-            <p className="text-5xl font-semibold ">Let's Get Started</p>
-            <p className="">
+        <div className="absolute w-[80%] max-md:w-[90%] h-[80%] bg-black z-10 backdrop-blur-[6px] bg-black/10 rounded-2xl flex ">
+          <div className="w-[50%] max-md:hidden h-full flex flex-col justify-center items-start p-16">
+            <p className="text-5xl max-lg:text-3xl font-semibold ">
+              Let's Get Started
+            </p>
+            <p className="max-lg:text-[14px]">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
           </div>
-          <div className="w-[50%] h-full flex  justify-center items-center bg-black/80 rounded-tr-2xl rounded-br-2xl ">
+          <div className="w-[50%] h-full max-lg:w-[60%] max-md:w-full  flex  justify-center items-center bg-black/80 rounded-tr-2xl rounded-br-2xl max-sm:rounded-tl-2xl max-sm:rounded-bl-2xl">
             <Formik
               initialValues={{
                 name: "",
@@ -132,7 +137,7 @@ const Signup = () => {
                         type="submit"
                         className="bg-transparent border-2 border-white text-white py-2 px-16 mt-8 rounded-md hover:bg-white hover:text-black focus:outline-none transition-all duration-300"
                       >
-                        Sign up
+                        SignUp
                       </button>
                     </div>
                   </div>
@@ -146,9 +151,9 @@ const Signup = () => {
               <div class="w-[.1px] bg-white h-52 mx-auto"></div>
             </div>
             <div className="h-full flex flex-col justify-center items-center">
-              <FaFacebook className="w-[50px] h-[50px] m-4" />
-              <AiFillTwitterCircle className="w-[50px] h-[50px] m-4" />
-              <AiFillGoogleCircle className="w-[50px] h-[50px] m-4" />
+              <FaFacebook className="w-[50px] h-[50px] max-lg:w-[30px]  m-4" />
+              <AiFillTwitterCircle className="w-[50px] h-[50px] max-lg:w-[30px] m-4" />
+              <AiFillGoogleCircle className="w-[50px] h-[50px] max-lg:w-[30px] m-4" />
             </div>
           </div>
         </div>

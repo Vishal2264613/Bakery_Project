@@ -1,85 +1,156 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
+import { useLocation, useNavigate, matchPath, Link } from "react-router-dom";
 import { logoImg, bagImg, accountImg } from "../utils";
 import { navLists } from "../constants";
-import DropdownMenu from '../components/DropdownUser';
+import DropdownMenu from "../components/DropdownUser";
+import MobileDropdown from "../components/MobileDropdown";
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useSelector((state) => state.auth.user);
   const isAuthenticated = Boolean(user);
 
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const toggleDropdown = () => setIsOpen(prev => !prev);
+  const alwaysBlackBgRoutes = [
+    "/cart",
+    "/checkout",
+    "/about",
+    "/contact",
+    "/product/:id",
+  ];
 
-  const goToCart = () => {
-    
-    navigate('/cart');
-  };
+  const alwaysBlackBg = alwaysBlackBgRoutes.some((route) =>
+    matchPath({ path: route, end: true }, location.pathname)
+  );
 
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
+  const goToCart = () => navigate("/cart");
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Scroll effect
   useEffect(() => {
+    if (alwaysBlackBg) return;
     const handleScroll = () => {
-      setScrolled(window.scrollY > window.innerHeight/2);
+      setScrolled(window.scrollY > window.innerHeight / 2);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [alwaysBlackBg]);
+
+  const bgClass = alwaysBlackBg
+    ? "bg-black/90"
+    : scrolled
+    ? "bg-black/80"
+    : "bg-transparent";
+
+  const linkTextClass =
+    alwaysBlackBg || scrolled
+      ? "text-white hover:text-gray-300"
+      : "text-gray-300 hover:text-white";
 
   return (
     <header
-      className={`w-full py-5 sm:px-10 px-5 flex justify-between items-center fixed transition-all duration-500 ease-in-out z-50 ${
-        scrolled ? "bg-black/80" : "bg-transparent"
-      }`}
+      className={`w-full py-5 sm:px-10 px-5 flex flex-col fixed transition-all duration-500 ease-in-out z-50 ${bgClass}`}
     >
-      <nav className="flex w-full screen-max-width ">
-        <img src={logoImg} alt="logo" className="w-[30px] h-[30px]" />
-
-        <div className="flex flex-1 justify-center max-sm:hidden">
-          {navLists.map((nav) => (
-            <div
-              key={nav}
-              className="px-5 text-sm cursor-pointer text-gray-300 hover:text-white transition-all"
-            >
-              <a href={`/${nav.toLowerCase()}`}>{nav}</a>
-            </div>
-          ))}
+      <nav className="flex justify-between items-center w-full screen-max-width">
+        {/* Logo */}
+        <div className="w-[100px] flex justify-end max-sm:justify-start">
+          <img src={logoImg} alt="logo" className="w-[30px] h-[30px]" />
         </div>
 
-        <div className="flex items-baseline gap-7 max-sm:justify-end max-sm:flex-1 cursor-pointer">
-          <img src={bagImg} alt="bag"   onClick={goToCart}  width={18} height={18} />
+        {/* Nav links (hidden on small screens) */}
+        <div className="flex justify-center max-sm:hidden">
+          {navLists.map((nav) => {
+            const path =
+              nav.toLowerCase() === "home" ? "/" : `/${nav.toLowerCase()}`;
+            return (
+              <div
+                key={nav}
+                className={`px-5 text-sm cursor-pointer transition-all ${linkTextClass}`}
+              >
+                <Link to={path}>{nav}</Link>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bag + Account (hidden on small screens) */}
+        <div
+          className={`flex justify-center items-center gap-7 max-sm:hidden cursor-pointer ${linkTextClass}`}
+        >
+          <img
+            src={bagImg}
+            alt="bag"
+            onClick={goToCart}
+            width={18}
+            height={18}
+          />
           <div className="relative" ref={menuRef}>
-            <div className="flex items-center w-[100px] " onClick={toggleDropdown}>
+            <div
+              className="flex items-center w-[100px]"
+              onClick={toggleDropdown}
+            >
               <img
                 src={accountImg}
                 alt="account"
                 width={18}
                 height={18}
-              
                 className="cursor-pointer mr-2"
               />
-              {isAuthenticated && <h2 className="text-white text-sm">Hi, {user.name.split(" ")[0].slice(0, 6)}</h2>}
+              {isAuthenticated && (
+                <h2 className="text-white text-sm">
+                  Hi, {user.name.split(" ")[0].slice(0, 6)}
+                </h2>
+              )}
             </div>
             {isOpen && <DropdownMenu closeMenu={() => setIsOpen(false)} />}
           </div>
         </div>
+
+        {/* Hamburger menu (visible on small screens) */}
+        <div className="sm:hidden flex items-center">
+          <button onClick={() => setMobileMenuOpen((prev) => !prev)}>
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile dropdown component */}
+      {mobileMenuOpen && (
+        <MobileDropdown
+          isAuthenticated={isAuthenticated}
+          user={user}
+          goToCart={goToCart}
+          closeMenu={() => setMobileMenuOpen(false)}
+        />
+      )}
     </header>
   );
 };

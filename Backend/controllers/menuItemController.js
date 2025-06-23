@@ -1,4 +1,5 @@
 const MenuItem = require("../models/MenuItem");
+const mongoose = require("mongoose");
 
 // GET /api/menu
 exports.getAllMenuItems = async (req, res) => {
@@ -40,5 +41,18 @@ exports.deleteMenuItem = async (req, res) => {
     res.json({ message: "Item deleted" });
   } catch (err) {
     res.status(400).json({ message: err.message });
+  }
+};
+
+exports.getMenuItemById = async (req, res) => {
+  try {
+    const item = await MenuItem.findById({ _id: req.params.id });
+
+    if (!item) {
+      return res.status(404).json({ message: "Menu item not found" });
+    }
+    res.json(item);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
 };

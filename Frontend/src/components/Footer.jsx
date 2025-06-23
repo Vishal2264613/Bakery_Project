@@ -8,9 +8,9 @@ import { s6_Img1, s6_Img2, s6_Img3, s6_Img4, s6_Img5, s6_Img6 } from "../utils";
 const Footer = () => {
   return (
     <>
-      <section className="relative w-full h-[60vh] bg-gray-950 flex justify-around items-center overflow-hidden">
-        <div className=" flex flex-col justify-evenly items-start h-[80%] w-[23%] ">
-          <h2 className="text-6xl font-greatvibes ">MABaker</h2>
+      <section className="relative w-full h-[50vh] max-md:h-auto pt-[20px] pb-[20px] bg-gray-950 flex max-md:flex-col justify-around items-center overflow-hidden">
+        <div className=" flex flex-col justify-start items-start p-2 h-full w-full ">
+          <h2 className="text-6xl max-xl:text-4xl font-greatvibes ">MABaker</h2>
           <p className="font-thin text-sm  text-gray-600 leading-loose">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
@@ -24,24 +24,24 @@ const Footer = () => {
             <FaWhatsapp className="w-[20px] h-[20px] mr-2" />
           </div>
         </div>
-        <div className=" flex flex-col justify-evenly items-start h-[80%] w-[23%] ">
-          <h2 className="text-3xl mb-6 tracking-wide">Latest Tweets</h2>
+        <div className=" flex flex-col justify-start items-start p-2 h-full w-full ">
+          <h2 className="text-3xl  mb-6 tracking-wide">Latest Tweets</h2>
           <div className="flex">
             <FaTwitter className="w-[50px] mr-2 mt-2" />
-            <p className="font-thin text-sm mb-2 text-gray-600 leading-loose">
+            <p className="font-thin text-sm max-lg:text-[12px] mb-2  text-gray-600 leading-loose">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
             </p>
           </div>
           <div className="flex">
             <FaTwitter className="w-[50px] mr-2 mt-2" />
-            <p className="font-thin text-sm  text-gray-600 leading-loose">
+            <p className="font-thin text-sm max-lg:text-[12px]  text-gray-600 leading-loose">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.{" "}
             </p>
           </div>
         </div>
-        <div className=" flex flex-col justify-evenly items-start h-[80%] w-[23%] ">
+        <div className=" flex flex-col justify-start items-start p-2 h-full w-full ">
           <h2 className="text-3xl mb-6 tracking-wide">Instagram Feed</h2>
           <div class="grid grid-cols-3 gap-4">
             <img src={s6_Img1} alt="Picture 1" class="w-full" />
@@ -52,7 +52,7 @@ const Footer = () => {
             <img src={s6_Img6} alt="Picture 6" class="w-full" />
           </div>
         </div>
-        <div className=" flex flex-col justify-evenly items-start h-[80%] w-[23%] ">
+        <div className=" flex flex-col justify-start items-start p-2 h-full w-full ">
           <h2 className="text-3xl mb-6 tracking-wide">Join The Club</h2>
           <div class="flex">
             <input
