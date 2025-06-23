@@ -26,12 +26,15 @@ const Login = () => {
   const isAuthenticated = Boolean(user);
   const navigate = useNavigate();
 
-  // 🔒 Redirect if already logged in
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/", { replace: true });
+      if (user?.role === "admin") {
+        navigate("/admin/dashboard", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, user, navigate]);
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
@@ -39,6 +42,7 @@ const Login = () => {
         <img
           src={loginBgImg}
           className="max-w-full h-full w-full object-cover object-top"
+          alt="Login background"
         />
       </div>
       <div className="flex justify-center items-center w-full h-full">
@@ -52,10 +56,7 @@ const Login = () => {
           </div>
           <div className="w-[50%] max-md:w-full h-full flex flex-col justify-center bg-black/80 rounded-tr-2xl rounded-br-2xl max-sm:rounded-tl-2xl max-sm:rounded-bl-2xl items-start p-20 max-xl:p-10 max-lg:p-2">
             <Formik
-              initialValues={{
-                email: "",
-                password: "",
-              }}
+              initialValues={{ email: "", password: "" }}
               validationSchema={LoginSchema}
               onSubmit={(values) => {
                 axios
@@ -74,7 +75,12 @@ const Login = () => {
                             user: res.data.user,
                           })
                         );
-                        navigate("/");
+
+                        if (res.data.user.role === "admin") {
+                          navigate("/admin/dashboard");
+                        } else {
+                          navigate("/");
+                        }
                       }
                     });
                   })
@@ -96,7 +102,7 @@ const Login = () => {
               }}
             >
               {({ errors, touched }) => (
-                <Form className="form  w-full h-auto">
+                <Form className="form w-full h-auto">
                   <p className="text-5xl p-5">Login</p>
 
                   <div className="flex flex-col justify-center items-start p-5">
@@ -106,21 +112,26 @@ const Login = () => {
                       type="email"
                       placeholder="Your email"
                     />
-                    {errors.email && touched.email ? (
-                      <div className="error">{errors.email}</div>
-                    ) : null}
+                    {errors.email && touched.email && (
+                      <div className="error text-red-500">{errors.email}</div>
+                    )}
                     <Field
                       className="border-b-2 w-full border-gray-300 bg-transparent focus:outline-none focus:border-blue-500 p-2 mb-8"
                       name="password"
                       type="password"
                       placeholder="Your password"
                     />
-                    {errors.password && touched.password ? (
-                      <div className="error">{errors.password}</div>
-                    ) : null}
-                    <p className="w-full flex justify-center items-center">
-                      Don't have an account?{" "}
-                      <a href="/signup" className="pl-2">
+                    {errors.password && touched.password && (
+                      <div className="error text-red-500">
+                        {errors.password}
+                      </div>
+                    )}
+                    <p className="w-full flex justify-center items-center text-white">
+                      Don't have an account?
+                      <a
+                        href="/signup"
+                        className="pl-2 underline text-blue-400"
+                      >
                         Signup
                       </a>
                     </p>

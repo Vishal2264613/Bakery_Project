@@ -1,12 +1,23 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { bagImg, accountImg } from "../utils";
 import { navLists } from "../constants";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/auth/authSlice";
+import { bagImg, accountImg } from "../utils";
 
 const MobileDropdown = ({ isAuthenticated, user, goToCart, closeMenu }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    closeMenu();
+    navigate("/");
+  };
+
   return (
-    <div className="sm:hidden bg-black/90 w-full py-4 px-6 mt-2 rounded-md z-40">
-      <div className="flex flex-col gap-4">
+    <div className="sm:hidden absolute top-[60px] left-0 w-full bg-black/95 px-5 py-6 z-40 rounded-b-2xl shadow-lg">
+      <div className="flex flex-col  gap-5 text-white text-sm">
         {navLists.map((nav) => {
           const path =
             nav.toLowerCase() === "home" ? "/" : `/${nav.toLowerCase()}`;
@@ -14,34 +25,53 @@ const MobileDropdown = ({ isAuthenticated, user, goToCart, closeMenu }) => {
             <Link
               key={nav}
               to={path}
-              className="text-white text-sm hover:text-gray-300"
               onClick={closeMenu}
+              className="hover:text-gray-300"
             >
               {nav}
             </Link>
           );
         })}
+
+        {/* Bag icon */}
         <div
+          className="flex items-center gap-2 cursor-pointer hover:text-gray-300"
           onClick={() => {
             goToCart();
             closeMenu();
           }}
-          className="flex items-center gap-2 cursor-pointer"
         >
-          <img src={bagImg} alt="bag" width={18} height={18} />
-          <span className="text-white text-sm">Cart</span>
+          <img src={bagImg} alt="Cart" width={18} height={18} />
+          <span>Cart</span>
         </div>
-        <div className="flex items-center gap-2">
-          <img src={accountImg} alt="account" width={18} height={18} />
+
+        {/* Account section */}
+        <div className="border-t border-gray-600 pt-4">
           {isAuthenticated ? (
-            <span className="text-white text-sm">
-              Hi, {user.name.split(" ")[0].slice(0, 6)}
-            </span>
+            <>
+              <div className="flex items-center gap-2 mb-3">
+                <img src={accountImg} alt="account" width={18} height={18} />
+                <span>Hi, {user.name.split(" ")[0].slice(0, 6)}</span>
+              </div>
+              <Link
+                to="/account-settings"
+                onClick={closeMenu}
+                className="block hover:text-gray-300 mb-2"
+              >
+                Account Settings
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="text-left text-white hover:text-red-400"
+              >
+                Log Out
+              </button>
+            </>
           ) : (
             <Link
               to="/login"
-              className="text-white text-sm hover:text-gray-300"
               onClick={closeMenu}
+              className="hover:text-gray-300"
             >
               Login
             </Link>

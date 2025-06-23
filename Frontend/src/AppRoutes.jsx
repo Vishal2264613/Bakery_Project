@@ -10,6 +10,8 @@ import Navbar from "./components/Navbar";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import ProductDetail from "./pages/ProductDetail";
+import AdminDashboard from "./pages/AdminDashboard";
+import PrivateRoute from "./components/PrivateRoute";
 
 const AppRoutes = () => {
   const location = useLocation();
@@ -52,6 +54,16 @@ const AppRoutes = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/shop" element={<Menu />} />
         <Route path="/product/:id" element={<ProductDetail />} />
+
+        <Route
+          path="/admin/dashboard"
+          element={
+            <PrivateRoute requiredRole="admin">
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>
