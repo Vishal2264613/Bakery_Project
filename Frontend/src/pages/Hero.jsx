@@ -37,7 +37,7 @@ const Hero = () => {
         <div className="absolute flex items-center justify-center w-full h-screen">
           <img
             src={heroImg}
-            className="max-w-full h-full object-cover bg-no-repeat"
+            className="max-w-full h-full w-full object-cover object-center"
           />
         </div>
 

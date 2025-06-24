@@ -11,6 +11,10 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import ProductDetail from "./pages/ProductDetail";
 import AdminDashboard from "./pages/AdminDashboard";
+import Dashboard from "./admin/pages/Dashboard";
+import Users from "./admin/pages/Users";      // Admin Users page
+import Orders from "./admin/pages/Orders";    // Admin Orders page
+import Settings from "./admin/pages/Settings";  // Admin Settings page
 import PrivateRoute from "./components/PrivateRoute";
 
 const AppRoutes = () => {
@@ -55,15 +59,22 @@ const AppRoutes = () => {
         <Route path="/shop" element={<Menu />} />
         <Route path="/product/:id" element={<ProductDetail />} />
 
+        {/* Admin Dashboard Route */}
         <Route
-          path="/admin/dashboard"
+          path="/admin/dashboard/*"
           element={
             <PrivateRoute requiredRole="admin">
-              <AdminDashboard />
+              <Dashboard />
             </PrivateRoute>
           }
-        />
+        >
+          {/* Nested Routes for Admin Dashboard */}
+          <Route path="users" element={<Users />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
 
+        {/* Other Routes */}
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </>

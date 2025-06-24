@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Footer from "../components/Footer";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -60,6 +61,7 @@ export default function ProductDetail() {
   if (!product) return <div className="p-6">Loading product...</div>;
 
   return (
+    <>
     <section className="relative w-full h-[100vh] bg-white overflow-hidden">
       <div className="p-8 md:p-16  text-black min-h-screen flex flex-col justify-center items-center md:flex-row gap-10">
         <div className="md:w-1/3">
@@ -110,5 +112,7 @@ export default function ProductDetail() {
         </div>
       </div>
     </section>
+       <Footer />
+       </>
   );
 }

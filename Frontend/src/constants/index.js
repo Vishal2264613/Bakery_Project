@@ -15,6 +15,44 @@ import {
 
 export const navLists = ["Home", "Shop", "About", "Contact"];
 
+export const dashboardMainList = [
+  {
+    title: "Admin",
+    img:{}
+  },
+  {
+    title: "Users",
+    img:{}
+  },
+  {
+    title: "Orders",
+    img:{}
+  },
+  {
+    title: "Mails",
+    img:{}
+  },
+];
+
+export const dashboardComponentsList = [
+  {
+    title: "Home Elements",
+    img:{}
+  },
+  {
+    title: "Shop Elements",
+    img:{}
+  },
+  {
+    title: "About Elements",
+    img:{}
+  },
+  {
+    title: "Contact Element",
+    img:{}
+  },
+];
+
 export const menuItemsTitles = [
   {
     id: 1,
