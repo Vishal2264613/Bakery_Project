@@ -15,6 +15,13 @@ const SignupSchema = Yup.object().shape({
     .max(50, "Too Long!")
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
+  phoneNumber: Yup.string()
+  .matches(
+    /^(?:\+?\d{1,3})?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
+    "Phone number is not valid"
+  )
+  .length(10, "Phone number must be exactly 10 digits long")
+  .required("Phone number is required"),
   password: Yup.string()
     .min(8, "Password must be 8 characters long")
     .matches(/[0-9]/, "Password requires a number")
@@ -53,6 +60,7 @@ const Signup = () => {
               initialValues={{
                 name: "",
                 email: "",
+                phoneNumber:"",
                 password: "",
                 confirmPassword: "",
               }}
@@ -102,6 +110,16 @@ const Signup = () => {
                     />
                     {errors.email && touched.email && (
                       <div className="error">{errors.email}</div>
+                    )}
+
+                    <Field
+                      className="w-full border-b-2 border-gray-300 bg-transparent focus:outline-none focus:border-blue-500 p-2 mb-8"
+                      name="phoneNumber"
+                      type="tel"  // use type="tel" for phone numbers
+                      placeholder="Your phone number" 
+                    />
+                    {errors.phoneNumber && touched.phoneNumber && (
+                      <div className="error">{errors.phoneNumber}</div>
                     )}
 
                     <Field

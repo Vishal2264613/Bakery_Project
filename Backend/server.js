@@ -10,6 +10,7 @@ dotenv.config();
 const authRoutes = require("./routes/auth");
 const cartRoutes = require("./routes/cartRoutes");
 const menuRoutes = require("./routes/menuItems");
+const userRoutes = require("./routes/userRoutes")
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.json()); // Parse incoming JSON requests
 app.use("/api/auth", authRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/cart", cartRoutes);
+app.use('/api', userRoutes); 
 
 // Optional: Handle unknown routes
 app.use((req, res) => {

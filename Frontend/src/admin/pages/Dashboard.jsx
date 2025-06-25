@@ -18,6 +18,7 @@ const Dashboard = () => {
                     src={dashboardImg}
                     className="max-w-full h-full w-full object-cover object-center absolute"
                   />
+                  
       {/* Sidebar */}
       <Sidebar />
       
@@ -26,7 +27,7 @@ const Dashboard = () => {
         <Navbar />
         
         {/* Main content area */}
-        <main className="h-[85vh] w-full p-10 overflow-auto backdrop-blur-[10px] bg-white/30 border border-white/20 rounded-2xl">
+        <main className="h-[85vh] w-full p-5 overflow-auto backdrop-blur-[10px] bg-white/30 border border-white/20 rounded-2xl">
           {/* This is where the nested routes will render */}
           <Routes>
             <Route path="/" element={<AdminHome />} /> {/* Default Dashboard Page */}

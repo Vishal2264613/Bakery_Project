@@ -44,9 +44,15 @@ import accImage from "/assets/images/account.svg";
 import hamburgerImage from "/assets/images/hamburger.svg";
 import bellImage from "/assets/images/bell.svg";
 
+import editImage from "/assets/images/edit.svg";
+import deleteImage from "/assets/images/delete.svg";
+
 import contact1 from "/assets/images/contact.jpg";
 import dashboardImage from "/assets/images/dashboard.jpg";
 import dashboardUserImage from "/assets/images/dashboardUser.jpg";
+
+export const editImg = editImage;
+export const deleteImg = deleteImage;
 
 export const dashboardImg= dashboardImage;
 export const dashboardUserImg= dashboardUserImage;
