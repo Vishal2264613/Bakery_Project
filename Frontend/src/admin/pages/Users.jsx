@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { editImg, deleteImg } from '../../utils';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { editImg, deleteImg } from "../../utils";
 
 const Users = () => {
   const [value, setValue] = useState(5); // Entries per page
-  const [query, setQuery] = useState(''); // Search query
+  const [query, setQuery] = useState(""); // Search query
   const [users, setUsers] = useState([]); // List of users
   const [filteredUsers, setFilteredUsers] = useState([]); // Filtered list based on search
   const [loading, setLoading] = useState(true); // Loading state
@@ -14,12 +14,12 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/users'); // Replace with your actual API endpoint
+        const response = await axios.get("http://localhost:3000/api/users"); // Replace with your actual API endpoint
         setUsers(response.data); // Assuming the response contains the users data
         setFilteredUsers(response.data); // Set initial filtered users
         setLoading(false);
       } catch (err) {
-        setError('Failed to fetch users');
+        setError("Failed to fetch users");
         setLoading(false);
       }
     };
@@ -39,9 +39,10 @@ const Users = () => {
 
   // Filter users based on the search query
   useEffect(() => {
-    const filtered = users.filter(user => 
-      user.name.toLowerCase().includes(query.toLowerCase()) || 
-      user.email.toLowerCase().includes(query.toLowerCase())
+    const filtered = users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(query.toLowerCase()) ||
+        user.email.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredUsers(filtered);
   }, [query, users]);
@@ -53,17 +54,19 @@ const Users = () => {
   return (
     <>
       <section>
-        <div className='w-full h-full flex justify-between px-5 p-0'>
-          <h1>Users Details</h1>
-          <button className='bg-blue-500 p-2 text-[14px] rounded-md'>+ Add User</button>
+        <div className="w-full h-full flex justify-between items-center px-1 p-0">
+          <h1 className="text-lg font-bold">Users Details</h1>
+          <button className="bg-blue-500 p-2 text-[14px] rounded-md">
+            + Add User
+          </button>
         </div>
-        <div className='w-full h-[70vh] bg-black/10   text-white overflow-auto px-5 py-6 mt-4'>
-          <div className='flex justify-between'>
+        <div className="w-full h-[70vh] bg-black/10 rounded-xl   text-white overflow-auto px-5 py-6 mt-4">
+          <div className="flex justify-between">
             <div>
-              <select 
-                id="number-select" 
-                value={value} 
-                onChange={handleChange} 
+              <select
+                id="number-select"
+                value={value}
+                onChange={handleChange}
                 className="w-[45px] bg-transparent border border-white h-[25px]"
               >
                 {[5, 10, 15, 20, 25].map((num) => (
@@ -72,7 +75,9 @@ const Users = () => {
                   </option>
                 ))}
               </select>
-              <label htmlFor="number-select" style={{ marginLeft: '10px' }}>entries per page </label>
+              <label htmlFor="number-select" style={{ marginLeft: "10px" }}>
+                entries per page{" "}
+              </label>
             </div>
             <div>
               <input
@@ -85,39 +90,63 @@ const Users = () => {
             </div>
           </div>
           <div>
-            <table className='w-full  border-separate border-spacing-y-6 ' >
+            <table className="w-full  border-separate border-spacing-y-6 ">
               <thead>
-                <tr >
-                  <th align='left'>Name</th>
+                <tr>
+                  <th align="left">Name</th>
                   <th>Email</th>
                   <th>Mobile no</th>
-                  <th>Registered On</th>
+                  <th>Registered on</th>
                   <th>Status</th>
-                  <th align='right'>Action</th>
+                  <th align="right">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan="6" align="center">Loading...</td>
+                    <td
+                      colSpan="6"
+                      align="center"
+                      className="text-black text-xl"
+                    >
+                      Loading...
+                    </td>
                   </tr>
                 ) : error ? (
                   <tr>
-                    <td colSpan="6" align="center">{error}</td>
+                    <td colSpan="6" align="center">
+                      {error}
+                    </td>
                   </tr>
                 ) : (
                   filteredUsers.slice(startIndex, endIndex).map((user) => (
-                    <tr key={user.id} className=''>
+                    <tr key={user.id} className="">
                       <td>{user.name}</td>
-                      <td align='center'>{user.email}</td>
-                      <td align='center'>{user.phoneNumber}</td>
-                      <td align='center'> {new Date(user.signupDate).toLocaleDateString('en-GB')}</td>
-                      <td align='center'>{user.status}</td>
-                      <td align='right' >
-                        <div className='flex justify-end'>
-                         <img src={editImg} alt="logo" className="w-[20px] h-[20px] cursor-pointer " />
-                          <img src={deleteImg} alt="logo" className="w-[20px] h-[20px] ml-2 cursor-pointer" />
-                          </div>
+                      <td align="center">{user.email}</td>
+                      <td align="center">{user.phoneNumber}</td>
+                      <td align="center">
+                        {" "}
+                        {new Date(user.signupDate).toLocaleDateString("en-GB")}
+                      </td>
+                      <td
+                        align="center"
+                        className="border-[1px] border-green-300 font-bold text-green-300"
+                      >
+                        {user.status}
+                      </td>
+                      <td align="right">
+                        <div className="flex justify-end">
+                          <img
+                            src={editImg}
+                            alt="logo"
+                            className="w-[20px] h-[20px] cursor-pointer "
+                          />
+                          <img
+                            src={deleteImg}
+                            alt="logo"
+                            className="w-[20px] h-[20px] ml-2 cursor-pointer"
+                          />
+                        </div>
                       </td>
                     </tr>
                   ))

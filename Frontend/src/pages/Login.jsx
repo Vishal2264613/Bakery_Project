@@ -46,12 +46,12 @@ const Login = () => {
         />
       </div>
       <div className="flex justify-center items-center w-full h-full">
-        <div className="absolute w-[80%] max-md:w-[90%] h-[80%] bg-black z-10 backdrop-blur-[6px] bg-black/10 rounded-2xl flex ">
+        <div className="absolute w-[80%] max-md:w-[90%] h-[90%] bg-black z-10 backdrop-blur-[6px] bg-black/10 rounded-2xl flex ">
           <div className="w-[50%] max-md:hidden h-full flex flex-col justify-center items-start p-16">
             <p className="text-6xl max-lg:text-4xl font-semibold ">WELCOME</p>
             <p className="max-lg:text-[14px]">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              We're glad you're here. Freshly baked goodness is just a click
+              away. Log in to start your sweet journey with us!
             </p>
           </div>
           <div className="w-[50%] max-md:w-full h-full flex flex-col justify-center bg-black/80 rounded-tr-2xl rounded-br-2xl max-sm:rounded-tl-2xl max-sm:rounded-bl-2xl items-start p-20 max-xl:p-10 max-lg:p-2">
