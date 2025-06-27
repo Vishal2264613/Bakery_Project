@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         greatvibes: ['"Great Vibes"', "cursive"],
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

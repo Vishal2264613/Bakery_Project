@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <header className="relative z-10 w-full h-[50px] flex justify-center items-center px-2 mb-2 ">
-      <nav className="flex justify-between items-center p-4 w-full h-[50px] mt-0 backdrop-blur-[10px] bg-white/30 border border-white/20 rounded-2xl">
+      <nav className="flex justify-between items-center p-4 w-full h-[50px] mt-0 backdrop-blur-md bg-white/10 border border-white/20 rounded-2xl">
         <h1 className="text-3xl font-greatvibes font-bold">Hello</h1>
         <div className="flex">
           <img
