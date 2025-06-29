@@ -55,8 +55,8 @@ const Users = () => {
     <>
       <section>
         <div className="w-full h-full flex justify-between items-center px-1 p-0">
-          <h1 className="text-lg font-bold">Users Details</h1>
-          <button className="bg-blue-500 p-2 text-[14px] rounded-md">
+          <h1 className="text-xl font-poppins font-bold">Users Details</h1>
+          <button className="bg-transparent border-[1px]  border-white p-2 text-[14px] rounded-md">
             + Add User
           </button>
         </div>
@@ -109,7 +109,9 @@ const Users = () => {
                       align="center"
                       className="text-black text-xl"
                     >
-                      Loading...
+                      <div className="flex items-center justify-center h-auto">
+                        <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-white border-solid"></div>
+                      </div>
                     </td>
                   </tr>
                 ) : error ? (

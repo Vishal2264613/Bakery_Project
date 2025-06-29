@@ -9,25 +9,46 @@ const Menu = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState("Cakes");
+  const [categories, setCategories] = useState([]);
 
   const handleClick = (item) => {
     setSelectedMenuItem(item);
   };
+  const fetchCategories = async () => {
+    setLoading(true);
+
+    try {
+      const res = await fetch("http://localhost:3000/api/categories");
+      if (!res.ok) {
+        throw new Error(`Error ${res.status}: ${res.statusText}`);
+      }
+      const data = await res.json();
+      setCategories(data.categories || data);
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const fetchMenuItems = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/api/menu");
+      setMenuItems(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching menu items:", error);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchMenuItems = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/api/menu");
-        setMenuItems(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching menu items:", error);
-        setLoading(false);
-      }
-    };
-
+    fetchCategories();
     fetchMenuItems();
   }, []);
+
+  const filteredItems = menuItems.filter(
+    (item) => item.category === selectedMenuItem
+  );
 
   if (loading) return <p>Loading menu...</p>;
 
@@ -48,16 +69,20 @@ const Menu = () => {
       </section>
       <section className="relative w-full h-[20vh] bg-yellow-50  overflow-hidden flex flex-col justify-evenly items-center">
         <div className="flex justify-evenly items-center w-[80%] max-md:w-full h-full ">
-          {menuItemsTitles.map((item) => (
+          {categories.map((item) => (
             <div
               className={`relative flex flex-col items-center justify-center text-black cursor-pointer transition-all duration-300 p-2 hover:scale-110
               after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-black after:transition-all after:duration-500
-              ${selectedMenuItem === item.title ? "after:w-full" : "after:w-0"}
+              ${selectedMenuItem === item.name ? "after:w-full" : "after:w-0"}
             `}
-              onClick={() => handleClick(item.title)}
+              onClick={() => handleClick(item.name)}
             >
-              <img key={item} src={item.img} height={50} width={50} />
-              <h2 className="text-sm font-normal">{item.title}</h2>
+              <img
+                src={item.imageUrl}
+                alt={item.name}
+                className="w-12 h-12 object-contain mx-auto rounded"
+              />
+              <h2 className="text-sm font-normal">{item.name}</h2>
             </div>
           ))}
         </div>
@@ -68,9 +93,13 @@ const Menu = () => {
           {selectedMenuItem}
         </h2>
         <div className=" w-full flex justify-evenly ">
-          <div class="grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-20">
-            {menuItems.map((item) =>
-              item.category === selectedMenuItem ? (
+          <div className="grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-20">
+            {filteredItems.length === 0 ? (
+              <p className="text-gray-500 text-lg col-span-full">
+                There are no items yet in this category!
+              </p>
+            ) : (
+              filteredItems.map((item) => (
                 <Card
                   key={item._id}
                   id={item._id}
@@ -79,7 +108,7 @@ const Menu = () => {
                   price={item.price}
                   img={item.image_url}
                 />
-              ) : null
+              ))
             )}
           </div>
         </div>

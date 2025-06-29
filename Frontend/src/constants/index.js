@@ -11,47 +11,77 @@ import {
   cake6Img,
   cake7Img,
   cake8Img,
+  adminImg,
+  aboutImg,
+  contactImg,
+  mailImg,
+  userImg,
+  homeImg,
+  orderImg,
+  shopImg,
+  searchImg,
+  settingImg,
 } from "../utils";
 
 export const navLists = ["Home", "Shop", "About", "Contact"];
 
-export const dashboardMainList = [
+export const dashboardList = [
   {
-    title: "Admin",
-    img:{}
+    title: "admin",
+    img: adminImg,
   },
   {
-    title: "Users",
-    img:{}
+    title: "users",
+    img: userImg,
   },
   {
-    title: "Orders",
-    img:{}
+    title: "orders",
+    img: orderImg,
   },
   {
-    title: "Mails",
-    img:{}
+    title: "mails",
+    img: mailImg,
+  },
+  {
+    title: "home",
+    img: homeImg,
+  },
+  {
+    title: "shop",
+    img: shopImg,
+  },
+  {
+    title: "about",
+    img: aboutImg,
+  },
+  {
+    title: "contact",
+    img: contactImg,
+  },
+  {
+    title: "setting",
+    img: settingImg,
   },
 ];
 
-export const dashboardComponentsList = [
-  {
-    title: "Home Elements",
-    img:{}
-  },
-  {
-    title: "Shop Elements",
-    img:{}
-  },
-  {
-    title: "About Elements",
-    img:{}
-  },
-  {
-    title: "Contact Element",
-    img:{}
-  },
-];
+// export const dashboardComponentsList = [
+//   {
+//     title: "home",
+//     img: {},
+//   },
+//   {
+//     title: "shop",
+//     img: {},
+//   },
+//   {
+//     title: "about",
+//     img: {},
+//   },
+//   {
+//     title: "contact",
+//     img: {},
+//   },
+// ];
 
 export const menuItemsTitles = [
   {

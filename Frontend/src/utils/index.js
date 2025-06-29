@@ -51,14 +51,34 @@ import contact1 from "/assets/images/contact.jpg";
 import dashboardImage from "/assets/images/dashboard.jpg";
 import dashboardUserImage from "/assets/images/dashboardUser.jpg";
 
+import aboutImage from "/assets/adminImages/about.svg";
+import adminImage from "/assets/adminImages/admin.svg";
+import contactImage from "/assets/adminImages/contact.svg";
+import homeImage from "/assets/adminImages/home.svg";
+import mailImage from "/assets/adminImages/mail.svg";
+import orderImage from "/assets/adminImages/order.svg";
+import shopImage from "/assets/adminImages/shop.svg";
+import userImage from "/assets/adminImages/user.svg";
+import settingImage from "/assets/adminImages/setting.svg";
+
+export const aboutImg = aboutImage;
+export const adminImg = adminImage;
+export const contactImg = contactImage;
+export const homeImg = homeImage;
+export const mailImg = mailImage;
+export const orderImg = orderImage;
+export const shopImg = shopImage;
+export const userImg = userImage;
+export const settingImg = settingImage;
+
 export const editImg = editImage;
 export const deleteImg = deleteImage;
 
-export const dashboardImg= dashboardImage;
-export const dashboardUserImg= dashboardUserImage;
+export const dashboardImg = dashboardImage;
+export const dashboardUserImg = dashboardUserImage;
 
-export const hamburgerImg = hamburgerImage; 
-export const bellImg = bellImage; 
+export const hamburgerImg = hamburgerImage;
+export const bellImg = bellImage;
 
 export const checkoutImg = checkoutBackgound;
 
