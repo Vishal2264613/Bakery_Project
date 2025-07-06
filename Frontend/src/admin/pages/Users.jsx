@@ -56,7 +56,7 @@ const Users = () => {
       <section>
         <div className="w-full h-full flex justify-between items-center px-1 p-0">
           <h1 className="text-xl font-poppins font-bold">Users Details</h1>
-          <button className="bg-transparent border-[1px]  border-white p-2 text-[14px] rounded-md">
+          <button className="bg-transparent border-[1px]  border-white px-1 p-1 text-[14px] rounded-md">
             + Add User
           </button>
         </div>

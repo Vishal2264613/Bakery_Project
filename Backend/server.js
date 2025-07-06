@@ -6,28 +6,33 @@ const dotenv = require("dotenv");
 // Load environment variables
 dotenv.config();
 
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json()); // For parsing JSON bodies
+
 // Import routes
 const authRoutes = require("./routes/auth");
 const cartRoutes = require("./routes/cartRoutes");
 const menuRoutes = require("./routes/menuItems");
 const userRoutes = require("./routes/userRoutes");
-const categoryRoutes = require("./routes/category.js");
+const categoryRoutes = require("./routes/category");
+const heroRoutes = require("./routes/hero"); // ✅ NEW: Hero section
+const orderRoutes = require("./routes/orderRoutes.js");
+const mailRoutes = require("./routes/mailRoutes.js");
 
-const app = express();
-
-// Middleware
-app.use(cors());
-app.use(express.json()); // Parse incoming JSON requests
-
-// API Routes
+// Mount API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api", userRoutes);
-
 app.use("/api/categories", categoryRoutes);
+app.use("/api/hero", heroRoutes); // ✅ Add hero route
+app.use("/api/orders", orderRoutes);
+app.use("/api/mails", mailRoutes);
 
-// Optional: Handle unknown routes
+// 404 fallback
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
@@ -41,7 +46,7 @@ mongoose
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => {
     console.error("❌ MongoDB connection error:", err.message);
-    process.exit(1); // Exit if DB fails
+    process.exit(1);
   });
 
 // Start server

@@ -62,57 +62,61 @@ export default function ProductDetail() {
 
   return (
     <>
-    <section className="relative w-full h-[100vh] bg-white overflow-hidden">
-      <div className="p-8 md:p-16  text-black min-h-screen flex flex-col justify-center items-center md:flex-row gap-10">
-        <div className="md:w-1/3">
-          <img
-            src={product.image_url}
-            alt={product.name}
-            className="rounded-xl shadow-lg w-full object-cover"
-          />
-        </div>
+      <section className="relative w-full h-[100vh] bg-white overflow-hidden">
+        <div className="p-8 md:p-16  text-black min-h-screen flex flex-col justify-center items-center md:flex-row gap-10">
+          <div className="md:w-1/3">
+            <img
+              src={product.image_url}
+              alt={product.name}
+              className="rounded-xl shadow-lg w-full object-cover"
+            />
+          </div>
 
-        <div className="md:w-1/2 flex flex-col gap-4">
-          <h2 className="text-3xl font-semibold">{product.name}</h2>
-          <p className="text-gray-500 text-sm uppercase">Contains Egg</p>
-          <p className="text-2xl font-semibold">₹ {product.price}</p>
+          <div className="md:w-1/2 flex flex-col gap-4">
+            <h2 className="text-3xl font-semibold">{product.name}</h2>
+            <p className="text-gray-500 text-sm uppercase">Contains Egg</p>
+            <p className="text-2xl font-semibold">₹ {product.price}</p>
 
-          <p className="text-gray-700 leading-relaxed">{product.description}</p>
+            <p className="text-gray-700 leading-relaxed">
+              {product.description}
+            </p>
 
-          <div className="flex items-center gap-4 mt-4">
+            <div className="flex items-center gap-4 mt-4">
+              <button
+                onClick={decreaseQty}
+                className="w-8 h-8 text-lg rounded-full border border-gray-400 flex items-center justify-center hover:bg-gray-100"
+              >
+                −
+              </button>
+              <span className="text-xl">{quantity}</span>
+              <button
+                onClick={increaseQty}
+                className="w-8 h-8 text-lg rounded-full border border-gray-400 flex items-center justify-center hover:bg-gray-100"
+              >
+                +
+              </button>
+            </div>
+
             <button
-              onClick={decreaseQty}
-              className="w-8 h-8 text-lg rounded-full border border-gray-400 flex items-center justify-center hover:bg-gray-100"
+              onClick={handleAddToCart}
+              className="mt-6 bg-black text-white text-lg px-6 py-3 rounded-xl hover:bg-gray-800 transition"
             >
-              −
+              ADD TO CART
             </button>
-            <span className="text-xl">{quantity}</span>
-            <button
-              onClick={increaseQty}
-              className="w-8 h-8 text-lg rounded-full border border-gray-400 flex items-center justify-center hover:bg-gray-100"
-            >
-              +
-            </button>
-          </div>
 
-          <button
-            onClick={handleAddToCart}
-            className="mt-6 bg-black text-white text-lg px-6 py-3 rounded-xl hover:bg-gray-800 transition"
-          >
-            ADD TO CART
-          </button>
-
-          <div className="mt-6 text-sm text-green-600">
-            ✓ Pickup available at Defence Bakery, Rajouri Garden
-          </div>
-          <div className="text-sm text-gray-600">Usually ready in 24 hours</div>
-          <div className="text-sm underline text-gray-600 cursor-pointer">
-            Check availability at other stores
+            <div className="mt-6 text-sm text-green-600">
+              ✓ Pickup available at MaBakers
+            </div>
+            <div className="text-sm text-gray-600">
+              Usually ready in 24 hours
+            </div>
+            <div className="text-sm underline text-gray-600 cursor-pointer">
+              Check availability at other stores
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-       <Footer />
-       </>
+      </section>
+      <Footer />
+    </>
   );
 }

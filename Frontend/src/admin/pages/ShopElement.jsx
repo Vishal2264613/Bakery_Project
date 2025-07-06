@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 
 // Import section editors
-import MainSectionEditor from "../components/MainSectionEditor";
-import CategorySectionEditor from "../components/CategorySectionEditor";
-import ProductSectionEditor from "../components/ProductSectionEditor";
-import ProductDetailSectionEditor from "../components/ProductDetailSectionEditor";
+import MainSectionEditor from "../components/shop/MainSectionEditor";
+import CategorySectionEditor from "../components/shop/CategorySectionEditor";
+import ProductSectionEditor from "../components/shop/ProductSectionEditor";
 
 const ShopElement = () => {
   const [activeSection, setActiveSection] = useState("main");
@@ -17,8 +16,6 @@ const ShopElement = () => {
         return <CategorySectionEditor />;
       case "product":
         return <ProductSectionEditor />;
-      case "productDetail":
-        return <ProductDetailSectionEditor />;
       default:
         return null;
     }
@@ -35,7 +32,6 @@ const ShopElement = () => {
           { key: "main", label: "Main Section" },
           { key: "category", label: "Category Section" },
           { key: "product", label: "Product Section" },
-          { key: "productDetail", label: "Product Detail Section" },
         ].map(({ key, label }) => (
           <button
             key={key}

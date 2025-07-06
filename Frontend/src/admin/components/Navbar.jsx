@@ -40,11 +40,11 @@ const Navbar = () => {
                 height={18}
                 className="cursor-pointer mr-2"
               />
-              {isAuthenticated && (
+              {/* {isAuthenticated && (
                 <h2 className="text-white text-sm">
                   {user.name.split(" ")[0].slice(0, 6)}
                 </h2>
-              )}
+              )} */}
             </div>
             {isOpen && <DropdownMenu closeMenu={() => setIsOpen(false)} />}
           </div>

@@ -1,12 +1,14 @@
 import { menuItemsTitles, cakesData } from "../constants";
-import { menuMainImg } from "../utils";
 import Card from "../components/Card";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
 
 const Menu = () => {
+  const [sectionName] = useState("shopSection");
   const [menuItems, setMenuItems] = useState([]);
+  const [heading, setHeading] = useState("");
+  const [imageUrls, setImageUrls] = useState([]); // must be array
   const [loading, setLoading] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState("Cakes");
   const [categories, setCategories] = useState([]);
@@ -14,36 +16,48 @@ const Menu = () => {
   const handleClick = (item) => {
     setSelectedMenuItem(item);
   };
-  const fetchCategories = async () => {
-    setLoading(true);
 
+  const fetchHeroData = async () => {
+    setLoading(true);
     try {
-      const res = await fetch("http://localhost:3000/api/categories");
-      if (!res.ok) {
-        throw new Error(`Error ${res.status}: ${res.statusText}`);
-      }
-      const data = await res.json();
-      setCategories(data.categories || data);
+      const res = await axios.get(
+        `http://localhost:3000/api/hero/${sectionName}`
+      );
+      const hero = res.data;
+      setHeading(hero.heading || "");
+      setImageUrls(hero.image_urls[0]);
+      console.log("Hero section:", hero);
     } catch (err) {
-      console.error("Error fetching categories:", err);
+      console.error("Error fetching hero data:", err);
     } finally {
       setLoading(false);
     }
   };
+
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/categories");
+      if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText}`);
+      const data = await res.json();
+      setCategories(data.categories || data);
+    } catch (err) {
+      console.error("Error fetching categories:", err);
+    }
+  };
+
   const fetchMenuItems = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/menu");
       setMenuItems(response.data);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching menu items:", error);
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchCategories();
     fetchMenuItems();
+    fetchHeroData();
   }, []);
 
   const filteredItems = menuItems.filter(
@@ -54,27 +68,31 @@ const Menu = () => {
 
   return (
     <>
-      <section className="relative w-full h-[80vh]  overflow-hidden">
-        <div className="absolute flex items-center justify-center w-full h-full ">
+      {/* Hero Section */}
+      <section className="relative w-full h-[80vh] overflow-hidden">
+        <div className="absolute flex items-center justify-center w-full h-full">
           <img
-            src={menuMainImg}
+            src={imageUrls}
+            alt="Hero"
             className="max-w-full h-full w-full object-cover object-bottom"
           />
-          <h1 className="absolute z-20 font-greatvibes tracking-wider leading-20 text-gray-300 text-center text-7xl max-md:text-5xl">
-            Welcome to a world of
-            <br /> irresistible flavors!
+          <h1 className="absolute z-20 w-[60%] font-greatvibes tracking-wider leading-20 text-gray-300 text-center text-7xl max-md:text-5xl">
+            {heading}
           </h1>
           <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-60 z-10" />
         </div>
       </section>
-      <section className="relative w-full h-[20vh] bg-yellow-50  overflow-hidden flex flex-col justify-evenly items-center">
-        <div className="flex justify-evenly items-center w-[80%] max-md:w-full h-full ">
+
+      {/* Categories Section */}
+      <section className="relative w-full h-[20vh] bg-yellow-50 overflow-hidden flex flex-col justify-evenly items-center">
+        <div className="flex justify-evenly items-center w-[80%] max-md:w-full h-full">
           {categories.map((item) => (
             <div
+              key={item.name}
               className={`relative flex flex-col items-center justify-center text-black cursor-pointer transition-all duration-300 p-2 hover:scale-110
-              after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-black after:transition-all after:duration-500
-              ${selectedMenuItem === item.name ? "after:w-full" : "after:w-0"}
-            `}
+                after:content-[''] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:bg-black after:transition-all after:duration-500
+                ${selectedMenuItem === item.name ? "after:w-full" : "after:w-0"}
+              `}
               onClick={() => handleClick(item.name)}
             >
               <img
@@ -86,13 +104,14 @@ const Menu = () => {
             </div>
           ))}
         </div>
-        {/* <div class="h-[.4px] bg-gray-600 w-[70%]"></div> */}
       </section>
-      <section className="relative w-full h-auto p-8 bg-white overflow-hidden ">
-        <h2 className="w-full text-6xl mt-2 tracking-wider text-yellow-500 font-bold mb-4 font-greatvibes  flex justify-evenly items-center">
+
+      {/* Menu Items Section */}
+      <section className="relative w-full h-auto p-8 bg-white overflow-hidden">
+        <h2 className="w-full text-6xl mt-2 tracking-wider text-yellow-500 font-bold mb-4 font-greatvibes flex justify-evenly items-center">
           {selectedMenuItem}
         </h2>
-        <div className=" w-full flex justify-evenly ">
+        <div className="w-full flex justify-evenly">
           <div className="grid grid-cols-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-md:grid-cols-1 gap-20">
             {filteredItems.length === 0 ? (
               <p className="text-gray-500 text-lg col-span-full">
@@ -113,6 +132,7 @@ const Menu = () => {
           </div>
         </div>
       </section>
+
       <Footer />
     </>
   );
