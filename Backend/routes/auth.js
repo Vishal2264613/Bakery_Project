@@ -7,7 +7,14 @@ const jwt = require("jsonwebtoken");
 // @route   POST /api/auth/signup
 // @desc    Register new user
 router.post("/signup", async (req, res) => {
-  const { name, email, phoneNumber,password, role = "customer", status } = req.body;
+  const {
+    name,
+    email,
+    phoneNumber,
+    password,
+    role = "customer",
+    status,
+  } = req.body;
 
   try {
     // Check if user exists
@@ -20,7 +27,14 @@ router.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create and save user
-    const newUser = new User({ name, email, phoneNumber ,password: hashedPassword, role, status });
+    const newUser = new User({
+      name,
+      email,
+      phoneNumber,
+      password: hashedPassword,
+      role,
+      status,
+    });
     await newUser.save();
 
     res.status(201).json({ message: "User registered successfully" });

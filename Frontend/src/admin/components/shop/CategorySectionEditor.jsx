@@ -3,23 +3,22 @@ import { editImg, deleteImg } from "../../../utils";
 
 const CategorySectionEditor = () => {
   const [showModal, setShowModal] = useState(false);
+  const [editMode, setEditMode] = useState(false);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [categoryName, setCategoryName] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [categories, setCategories] = useState([]);
+  const [status, setStatus] = useState("active");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch categories from backend
   const fetchCategories = async () => {
     setLoading(true);
     setError(null);
     try {
       const res = await fetch("http://localhost:3000/api/categories");
-      if (!res.ok) {
-        throw new Error(`Error ${res.status}: ${res.statusText}`);
-      }
       const data = await res.json();
       setCategories(data.categories || data);
     } catch (err) {
@@ -40,7 +39,6 @@ const CategorySectionEditor = () => {
 
   const handleUpload = async () => {
     if (!imageFile) return;
-
     setUploading(true);
     const formData = new FormData();
     formData.append("file", imageFile);
@@ -69,25 +67,30 @@ const CategorySectionEditor = () => {
       name: categoryName,
       slug: categoryName.toLowerCase().replace(/\s+/g, "-"),
       imageUrl,
-      status: "active",
+      status,
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/categories/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const url = editMode
+        ? `http://localhost:3000/api/categories/${selectedCategoryId}`
+        : "http://localhost:3000/api/categories/add";
+      const method = editMode ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(category),
       });
 
       const data = await res.json();
-      console.log("Category saved:", data);
+      console.log("Saved:", data);
 
-      // Reset form & refresh list
       setCategoryName("");
       setImageFile(null);
       setImageUrl("");
+      setStatus("active");
+      setSelectedCategoryId(null);
+      setEditMode(false);
       setShowModal(false);
       fetchCategories();
     } catch (err) {
@@ -95,40 +98,65 @@ const CategorySectionEditor = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this category?"))
+      return;
+
+    try {
+      await fetch(`http://localhost:3000/api/categories/${id}`, {
+        method: "DELETE",
+      });
+      fetchCategories();
+    } catch (err) {
+      console.error("Error deleting category:", err);
+    }
+  };
+
+  const handleEdit = (cat) => {
+    setEditMode(true);
+    setSelectedCategoryId(cat._id);
+    setCategoryName(cat.name);
+    setImageUrl(cat.imageUrl);
+    setStatus(cat.status || "active");
+    setShowModal(true);
+  };
+
   return (
     <>
       <section className="min-h-[70vh] w-full border mt-6 py-2 px-6 rounded-lg border-gray-200">
-        {/* Header */}
-        <div className="w-full flex justify-between items-start  py-2">
+        <div className="w-full flex justify-between items-start py-2">
           <h1 className="text-xl font-poppins font-bold">Categories</h1>
           <button
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setShowModal(true);
+              setEditMode(false);
+              setCategoryName("");
+              setImageFile(null);
+              setImageUrl("");
+              setStatus("active");
+            }}
             className="bg-transparent border border-white p-2 text-sm rounded-md"
           >
             Add Category
           </button>
         </div>
 
-        {/* Category Grid or Table */}
         <div>
-          <table className="w-full  border-separate border-spacing-y-6 ">
+          <table className="w-full border-separate border-spacing-y-6">
             <thead>
               <tr>
                 <th align="left">Name</th>
                 <th>Image</th>
-
                 <th>Created At</th>
-                <th>status</th>
+                <th>Status</th>
                 <th align="right">Action</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan="6" align="center" className="text-black text-xl">
-                    <div className="flex items-center justify-center h-auto">
-                      <div className="animate-spin rounded-full h-8 w-8 border-t-4 border-white border-solid"></div>
-                    </div>
+                  <td colSpan="6" align="center">
+                    Loading...
                   </td>
                 </tr>
               ) : error ? (
@@ -140,14 +168,12 @@ const CategorySectionEditor = () => {
               ) : categories.length === 0 ? (
                 <tr>
                   <td colSpan="6" align="center">
-                    <p className="w-full text-gray-600 text-center col-span-full">
-                      No categories found.
-                    </p>
+                    No categories found.
                   </td>
                 </tr>
               ) : (
                 categories.map((cat) => (
-                  <tr key={cat._id} className="">
+                  <tr key={cat._id}>
                     <td>{cat.name}</td>
                     <td align="center">
                       <img
@@ -156,12 +182,18 @@ const CategorySectionEditor = () => {
                         className="w-12 h-12 object-contain mx-auto rounded"
                       />
                     </td>
-
                     <td align="center">
                       {new Date(cat.createdAt).toLocaleDateString("en-GB")}
                     </td>
                     <td align="center">
-                      <div className="border-[.1px] border-green-300 py-1 px-0  font-bold text-green-300">
+                      <div
+                        className={`border-[.1px] py-1 px-2 font-bold rounded 
+                          ${
+                            cat.status === "active"
+                              ? "text-green-400 border-green-400"
+                              : "text-red-400 border-red-400"
+                          }`}
+                      >
                         {cat.status}
                       </div>
                     </td>
@@ -169,13 +201,15 @@ const CategorySectionEditor = () => {
                       <div className="flex justify-end">
                         <img
                           src={editImg}
-                          alt="logo"
-                          className="w-[20px] h-[20px] cursor-pointer "
+                          alt="edit"
+                          className="w-[20px] h-[20px] cursor-pointer"
+                          onClick={() => handleEdit(cat)}
                         />
                         <img
                           src={deleteImg}
-                          alt="logo"
+                          alt="delete"
                           className="w-[20px] h-[20px] ml-2 cursor-pointer"
+                          onClick={() => handleDelete(cat._id)}
                         />
                       </div>
                     </td>
@@ -187,11 +221,12 @@ const CategorySectionEditor = () => {
         </div>
       </section>
 
-      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/40 flex justify-center items-center">
           <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 text-black relative">
-            <h2 className="text-xl font-semibold mb-4">Add New Category</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              {editMode ? "Edit Category" : "Add New Category"}
+            </h2>
 
             <label className="block mb-2 font-medium">Category Name:</label>
             <input
@@ -200,6 +235,16 @@ const CategorySectionEditor = () => {
               onChange={(e) => setCategoryName(e.target.value)}
               className="w-full p-2 border border-gray-300 rounded mb-4"
             />
+
+            <label className="block mb-2 font-medium">Status:</label>
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded mb-4"
+            >
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
 
             <label className="block mb-2 font-medium">Upload SVG/Image:</label>
             <input
@@ -242,7 +287,7 @@ const CategorySectionEditor = () => {
                 disabled={!categoryName || !imageUrl}
                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
               >
-                Save Category
+                {editMode ? "Update" : "Save"}
               </button>
             </div>
           </div>

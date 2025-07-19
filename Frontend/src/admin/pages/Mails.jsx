@@ -10,6 +10,7 @@ const Mails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch all mails
   useEffect(() => {
     const fetchMails = async () => {
       try {
@@ -26,6 +27,24 @@ const Mails = () => {
     fetchMails();
   }, []);
 
+  // Handle delete
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this mail?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`http://localhost:3000/api/mails/${id}`);
+      const updatedMails = mails.filter((mail) => mail._id !== id);
+      setMails(updatedMails);
+      setFilteredMails(updatedMails);
+    } catch (err) {
+      console.error("Failed to delete mail", err);
+      alert("Failed to delete mail. Please try again.");
+    }
+  };
+
   const handleChange = (event) => {
     setValue(parseInt(event.target.value, 10));
   };
@@ -34,6 +53,7 @@ const Mails = () => {
     setQuery(event.target.value);
   };
 
+  // Filter mails on search
   useEffect(() => {
     const filtered = mails.filter(
       (mail) =>
@@ -53,6 +73,7 @@ const Mails = () => {
       <div className="w-full h-full flex justify-between items-center px-1 p-0">
         <h1 className="text-xl font-poppins font-bold">Mail Inbox</h1>
       </div>
+
       <div className="w-full h-[70vh] bg-black/10 rounded-xl text-white overflow-auto px-5 py-6 mt-4">
         <div className="flex justify-between">
           <div>
@@ -82,6 +103,7 @@ const Mails = () => {
             />
           </div>
         </div>
+
         <div>
           <table className="w-full border-separate border-spacing-y-6">
             <thead>
@@ -132,6 +154,7 @@ const Mails = () => {
                         <img
                           src={deleteImg}
                           alt="delete"
+                          onClick={() => handleDelete(mail._id)}
                           className="w-[20px] h-[20px] ml-2 cursor-pointer"
                         />
                       </div>

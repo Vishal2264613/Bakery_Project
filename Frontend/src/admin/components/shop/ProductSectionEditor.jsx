@@ -8,6 +8,7 @@ const ProductSectionEditor = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
+  const [available, setAvailable] = useState(true);
   const [categories, setCategories] = useState([]);
   const [imageFile, setImageFile] = useState(null);
   const [uploading, setUploading] = useState(false);
@@ -15,34 +16,28 @@ const ProductSectionEditor = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [editingProduct, setEditingProduct] = useState(null);
 
   const fetchMenuItems = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/menu");
       setMenuItems(response.data);
-      setLoading(false);
     } catch (error) {
       console.error("Error fetching menu items:", error);
       setError("Failed to load menu items.");
+    } finally {
       setLoading(false);
     }
   };
 
   const fetchCategories = async () => {
-    setLoading(true);
-    setError(null);
     try {
       const res = await fetch("http://localhost:3000/api/categories");
-      if (!res.ok) {
-        throw new Error(`Error ${res.status}: ${res.statusText}`);
-      }
       const data = await res.json();
       setCategories(data.categories || data);
     } catch (err) {
       console.error("Error fetching categories:", err);
       setError(err.message || "Error fetching categories");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -88,12 +83,18 @@ const ProductSectionEditor = () => {
       price: parseFloat(price),
       category,
       image_url: imageUrl,
-      available: true,
+      available,
     };
 
+    const url = editingProduct
+      ? `http://localhost:3000/api/menu/${editingProduct._id}`
+      : "http://localhost:3000/api/menu/add";
+
+    const method = editingProduct ? "PUT" : "POST";
+
     try {
-      const res = await fetch("http://localhost:3000/api/menu/add", {
-        method: "POST",
+      const res = await fetch(url, {
+        method,
         headers: {
           "Content-Type": "application/json",
         },
@@ -101,19 +102,42 @@ const ProductSectionEditor = () => {
       });
 
       const data = await res.json();
-      console.log("Product added:", data);
+      console.log("Product saved:", data);
 
-      // Reset form
       setProductName("");
       setDescription("");
       setPrice("");
       setCategory("");
+      setAvailable(true);
       setImageFile(null);
       setImageUrl("");
       setShowModal(false);
+      setEditingProduct(null);
       fetchMenuItems();
     } catch (err) {
       console.error("Error saving product:", err);
+    }
+  };
+
+  const handleEdit = (item) => {
+    setProductName(item.name);
+    setDescription(item.description);
+    setPrice(item.price);
+    setCategory(item.category);
+    setImageUrl(item.image_url);
+    setAvailable(item.available); // Set status
+    setEditingProduct(item);
+    setShowModal(true);
+  };
+
+  const handleDelete = async (id) => {
+    if (confirm("Are you sure you want to delete this product?")) {
+      try {
+        await axios.delete(`http://localhost:3000/api/menu/${id}`);
+        fetchMenuItems();
+      } catch (err) {
+        console.error("Error deleting product:", err);
+      }
     }
   };
 
@@ -124,7 +148,17 @@ const ProductSectionEditor = () => {
         <div className="w-full flex justify-between items-start py-2">
           <h1 className="text-xl font-poppins font-bold">Products</h1>
           <button
-            onClick={() => setShowModal(true)}
+            onClick={() => {
+              setShowModal(true);
+              setEditingProduct(null);
+              setProductName("");
+              setDescription("");
+              setPrice("");
+              setCategory("");
+              setAvailable(true);
+              setImageFile(null);
+              setImageUrl("");
+            }}
             className="bg-transparent border border-white p-2 text-sm rounded-md"
           >
             Add Product
@@ -161,14 +195,14 @@ const ProductSectionEditor = () => {
                 </tr>
               ) : menuItems.length === 0 ? (
                 <tr>
-                  <td colSpan="6" align="center">
-                    <p className="text-gray-600">No Menu items found.</p>
+                  <td colSpan="6" align="center" className="text-gray-500 py-6">
+                    No menu items found.
                   </td>
                 </tr>
               ) : (
                 menuItems.map((item) => (
                   <tr key={item._id}>
-                    <td>{item.name}</td>
+                    <td className="truncate max-w-[140px]">{item.name}</td>
                     <td align="center">
                       <img
                         src={item.image_url}
@@ -176,11 +210,10 @@ const ProductSectionEditor = () => {
                         className="w-12 h-12 object-contain mx-auto rounded"
                       />
                     </td>
-                    <td
-                      align="center"
-                      className="overflow-x-auto whitespace-nowrap"
-                    >
-                      {item.description}
+                    <td align="center">
+                      <div className="max-w-[200px] truncate text-ellipsis overflow-hidden whitespace-nowrap mx-auto">
+                        {item.description}
+                      </div>
                     </td>
                     <td align="center">${item.price}</td>
                     <td align="center">
@@ -200,11 +233,13 @@ const ProductSectionEditor = () => {
                           src={editImg}
                           alt="edit"
                           className="w-[20px] h-[20px] cursor-pointer"
+                          onClick={() => handleEdit(item)}
                         />
                         <img
                           src={deleteImg}
                           alt="delete"
                           className="w-[20px] h-[20px] ml-2 cursor-pointer"
+                          onClick={() => handleDelete(item._id)}
                         />
                       </div>
                     </td>
@@ -218,9 +253,11 @@ const ProductSectionEditor = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex justify-center items-center">
-          <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 text-black relative">
-            <h2 className="text-xl font-semibold mb-4">Add New Product</h2>
+        <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4 py-8">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[80vh] overflow-y-auto p-6 text-black">
+            <h2 className="text-xl font-semibold mb-4">
+              {editingProduct ? "Edit Product" : "Add New Product"}
+            </h2>
 
             <label className="block mb-2 font-medium">Product Name:</label>
             <input
@@ -262,6 +299,16 @@ const ProductSectionEditor = () => {
               ))}
             </select>
 
+            <label className="block mb-2 font-medium">Status:</label>
+            <select
+              value={available ? "Available" : "Sold Out"}
+              onChange={(e) => setAvailable(e.target.value === "Available")}
+              className="w-full p-2 border border-gray-300 rounded mb-4"
+            >
+              <option value="Available">Available</option>
+              <option value="Sold Out">Sold Out</option>
+            </select>
+
             <label className="block mb-2 font-medium">Upload Image:</label>
             <input
               type="file"
@@ -293,7 +340,10 @@ const ProductSectionEditor = () => {
 
             <div className="mt-6 flex justify-end gap-3">
               <button
-                onClick={() => setShowModal(false)}
+                onClick={() => {
+                  setShowModal(false);
+                  setEditingProduct(null);
+                }}
                 className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
               >
                 Cancel
@@ -309,7 +359,7 @@ const ProductSectionEditor = () => {
                 }
                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
               >
-                Save Product
+                {editingProduct ? "Update Product" : "Save Product"}
               </button>
             </div>
           </div>

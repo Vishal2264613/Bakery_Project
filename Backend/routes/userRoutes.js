@@ -1,10 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getUsers } = require('../controllers/userController'); // Correctly import the controller
+const {
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+} = require("../controllers/userController");
 
-const { authenticateJWT } = require('../middleware/authenticate'); // Import the middleware
-
-// Ensure this is correctly defined
-router.get('/users', getUsers);
+router.get("/", getUsers); // Get all users
+router.get("/:id", getUserById); // Get user by ID
+router.post("/", createUser); // Create new user
+router.put("/:id", updateUser); // Update user by ID
+router.delete("/:id", deleteUser); // Delete user by ID
 
 module.exports = router;

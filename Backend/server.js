@@ -26,7 +26,7 @@ const mailRoutes = require("./routes/mailRoutes.js");
 app.use("/api/auth", authRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/cart", cartRoutes);
-app.use("/api", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/hero", heroRoutes); // ✅ Add hero route
 app.use("/api/orders", orderRoutes);
