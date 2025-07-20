@@ -10,7 +10,6 @@ import Navbar from "./components/Navbar";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import ProductDetail from "./pages/ProductDetail";
-import AdminDashboard from "./pages/AdminDashboard";
 import Dashboard from "./admin/pages/Dashboard";
 import Users from "./admin/pages/Users"; // Admin Users page
 import Orders from "./admin/pages/Orders"; // Admin Orders page

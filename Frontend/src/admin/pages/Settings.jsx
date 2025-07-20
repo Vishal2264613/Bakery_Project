@@ -1,95 +1,66 @@
 import React, { useState } from "react";
-
+import General from "../components/setting/General";
+import Notification from "../components/setting/Notification";
+import LoginSecurity from "../components/setting/LoginSecurity";
 const Settings = () => {
-  const [darkMode, setDarkMode] = useState(false);
-  const [emailNotif, setEmailNotif] = useState(true);
+  const [activeTab, setActiveTab] = useState("general");
+
+  const renderSection = () => {
+    switch (activeTab) {
+      case "general":
+        return <General />;
+      case "notification":
+        return <Notification />;
+      case "security":
+        return <LoginSecurity />;
+      default:
+        return null;
+    }
+  };
+
+  const buttonBaseStyle =
+    "w-full p-3 text-[14px] rounded-md border transition-all duration-200";
 
   return (
-    <section className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Settings</h1>
+    <section className="w-full h-full">
+      {/* Header */}
+      <div className="w-full h-[5%] flex justify-between items-center px-1 p-0">
+        <h1 className="text-xl font-poppins font-bold">Settings</h1>
+      </div>
 
-      {/* Profile Settings */}
-      <div className="mb-6 bg-transparent rounded-lg shadow p-4">
-        <h2 className="text-lg font-semibold mb-4">Profile Settings</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Admin Name"
-            className="border p-2 rounded"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            className="border p-2 rounded"
-          />
-          <input
-            type="password"
-            placeholder="Change Password"
-            className="border p-2 rounded"
-          />
+      {/* Horizontal Divider */}
+      <div className="border-t border-gray-300 my-3" />
+
+      {/* Layout */}
+      <div className="flex justify-between w-full h-[70vh]">
+        {/* Sidebar */}
+        <div className="w-[25%] h-full  ">
+          <div className="flex flex-col items-start gap-3 p-2">
+            {[
+              { key: "general", label: "General" },
+              { key: "notification", label: "Notification" },
+              { key: "security", label: "Login & Security" },
+            ].map(({ key, label }) => (
+              <button
+                key={key}
+                onClick={() => setActiveTab(key)}
+                className={`${buttonBaseStyle} ${
+                  activeTab === key
+                    ? "bg-black/30 text-white border-white"
+                    : "bg-transparent text-white border-white"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Site Preferences */}
-      <div className="mb-6 bg-transparent rounded-lg shadow p-4">
-        <h2 className="text-lg font-semibold mb-4">Site Preferences</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            placeholder="Site Name"
-            className="border p-2 rounded"
-          />
-          <input
-            type="text"
-            placeholder="Support Email"
-            className="border p-2 rounded"
-          />
-          <input
-            type="text"
-            placeholder="Contact Phone"
-            className="border p-2 rounded"
-          />
-          <input
-            type="text"
-            placeholder="Business Address"
-            className="border p-2 rounded"
-          />
-        </div>
-      </div>
+        {/* Vertical Divider */}
+        <div className="w-px h-full bg-gray-300 " />
 
-      {/* Theme Settings */}
-      <div className="mb-6 bg-transparent rounded-lg shadow p-4">
-        <h2 className="text-lg font-semibold mb-4">Theme Settings</h2>
-        <label className="flex items-center space-x-4">
-          <span>Dark Mode</span>
-          <input
-            type="checkbox"
-            checked={darkMode}
-            onChange={() => setDarkMode(!darkMode)}
-            className="w-5 h-5"
-          />
-        </label>
-      </div>
-
-      {/* Notification Settings */}
-      <div className="mb-6 bg-transparent rounded-lg shadow p-4">
-        <h2 className="text-lg font-semibold mb-4">Notification Settings</h2>
-        <label className="flex items-center space-x-4">
-          <span>Email Notifications</span>
-          <input
-            type="checkbox"
-            checked={emailNotif}
-            onChange={() => setEmailNotif(!emailNotif)}
-            className="w-5 h-5"
-          />
-        </label>
-      </div>
-
-      {/* Save Button */}
-      <div className="text-right">
-        <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
-          Save Changes
-        </button>
+        {/* Right Section */}
+        <div className="w-[70%] h-full ">{renderSection()}</div>
       </div>
     </section>
   );
